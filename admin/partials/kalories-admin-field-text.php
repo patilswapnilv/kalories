@@ -10,22 +10,22 @@
  * @subpackage Kalories/admin/partials
  */
 
-if ( ! empty( $atts['label'] ) ) {
+if (!empty($atts['label'])) {
 
-	?><label for="<?php echo esc_attr( $atts['id'] ); ?>"><?php esc_html_e( $atts['label'], 'kalories' ); ?>: </label><?php
+	?><label for="<?php echo esc_attr($atts['id']); ?>"><?php esc_html_e($atts['label'], 'kalories'); ?>: </label><?php
 
 }
 
 ?><input
-	class="<?php echo esc_attr( $atts['class'] ); ?>"
-	id="<?php echo esc_attr( $atts['id'] ); ?>"
-	name="<?php echo esc_attr( $atts['name'] ); ?>"
-	placeholder="<?php echo esc_attr( $atts['placeholder'] ); ?>"
-	type="<?php echo esc_attr( $atts['type'] ); ?>"
-	value="<?php echo esc_attr( $atts['value'] ); ?>" /><?php
+	class="<?php echo esc_attr($atts['class']); ?>"
+	id="<?php echo esc_attr($atts['id']); ?>"
+	name="<?php echo esc_attr($atts['name']); ?>"
+	placeholder="<?php echo esc_attr($atts['placeholder']); ?>"
+	type="<?php echo esc_attr($atts['type']); ?>"
+	value="<?php echo esc_attr($atts['value']); ?>" /><?php
 
-if ( ! empty( $atts['description'] ) ) {
+if (!empty($atts['description'])) {
 
-	?><span class="description"><?php esc_html_e( $atts['description'], 'kalories' ); ?></span><?php
+	?><span class="description"><?php esc_html_e($atts['description'], 'kalories'); ?></span><?php
 
 }

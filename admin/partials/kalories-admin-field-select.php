@@ -10,48 +10,48 @@
  * @subpackage Kalories/admin/partials
  */
 
-if ( ! empty( $atts['label'] ) ) {
+if (!empty($atts['label'])) {
 
-	?><label for="<?php echo esc_attr( $atts['id'] ); ?>"><?php esc_html_e( $atts['label'], 'employees' ); ?>: </label><?php
+	?><label for="<?php echo esc_attr($atts['id']); ?>"><?php esc_html_e($atts['label'], 'employees'); ?>: </label><?php
 
 }
 
 ?><select
-	aria-label="<?php esc_attr( _e( $atts['aria'], 'kalories' ) ); ?>"
-	class="<?php echo esc_attr( $atts['class'] ); ?>"
-	id="<?php echo esc_attr( $atts['id'] ); ?>"
-	name="<?php echo esc_attr( $atts['name'] ); ?>"><?php
+	aria-label="<?php esc_attr(_e($atts['aria'], 'kalories')); ?>"
+	class="<?php echo esc_attr($atts['class']); ?>"
+	id="<?php echo esc_attr($atts['id']); ?>"
+	name="<?php echo esc_attr($atts['name']); ?>"><?php
 
-if ( ! empty( $atts['blank'] ) ) {
+if (!empty($atts['blank'])) {
 
-	?><option value><?php esc_html_e( $atts['blank'], 'kalories' ); ?></option><?php
+	?><option value><?php esc_html_e($atts['blank'], 'kalories'); ?></option><?php
 
 }
 
-foreach ( $atts['selections'] as $selection ) {
+foreach ($atts['selections'] as $selection) {
 
-	if ( is_array( $selection ) ) {
+	if (is_array($selection)) {
 
 		$label = $selection['label'];
 		$value = $selection['value'];
 
 	} else {
 
-		$label = strtolower( $selection );
-		$value = strtolower( $selection );
+		$label = strtolower($selection);
+		$value = strtolower($selection);
 
 	}
 
 	?><option
-		value="<?php echo esc_attr( $value ); ?>" <?php
-		selected( $atts['value'], $value ); ?>><?php
+		value="<?php echo esc_attr($value); ?>" <?php
+		selected($atts['value'], $value); ?>><?php
 
-		esc_html_e( $label, 'kalories' );
+		esc_html_e($label, 'kalories');
 
 	?></option><?php
 
 } // foreach
 
 ?></select>
-<span class="description"><?php esc_html_e( $atts['description'], 'kalories' ); ?></span>
+<span class="description"><?php esc_html_e($atts['description'], 'kalories'); ?></span>
 </label>

@@ -9,7 +9,7 @@
 */
 
 // Exit if accessed directly
-if ( !defined( 'ABSPATH' ) ) exit;
+if (!defined('ABSPATH')) exit;
 
 
 // vars
@@ -17,20 +17,20 @@ $defaults = array(
 	'acf_posts' => array(),
 	'nonce' => ''
 );
-$my_options = array_merge( $defaults, $_POST );
+$my_options = array_merge($defaults, $_POST);
 
 
 // validate nonce
-if( !wp_verify_nonce($my_options['nonce'], 'export') )
+if (!wp_verify_nonce($my_options['nonce'], 'export'))
 {
-	wp_die(__("Error",'acf'));
+	wp_die(__("Error", 'acf'));
 }
 
 
 // check for posts
-if( empty($my_options['acf_posts']) )
+if (empty($my_options['acf_posts']))
 {
-	wp_die(__("No ACF groups selected",'acf'));
+	wp_die(__("No ACF groups selected", 'acf'));
 }
 
 
@@ -41,7 +41,7 @@ if( empty($my_options['acf_posts']) )
  *
  * @since 2.5.0
  */
-define( 'WXR_VERSION', '1.1' );
+define('WXR_VERSION', '1.1');
 
 
 /*
@@ -57,16 +57,16 @@ define( 'WXR_VERSION', '1.1' );
 *  @return	$v (mixed)
 */
 
-function fix_line_breaks( $v )
+function fix_line_breaks($v)
 {
-	if( is_array($v) )
+	if (is_array($v))
 	{
-		foreach( array_keys($v) as $k )
+		foreach (array_keys($v) as $k)
 		{
-			$v[ $k ] = fix_line_breaks( $v[ $k ] );
+			$v[$k] = fix_line_breaks($v[$k]);
 		}
 	}
-	elseif( is_string($v) )
+	elseif (is_string($v))
 	{
 		$v = str_replace("\r\n", "\r", $v);
 	}
@@ -82,12 +82,12 @@ function fix_line_breaks( $v )
  *
  * @param string $str String to wrap in XML CDATA tag.
  */
-function wxr_cdata( $str ) {
-	if ( seems_utf8( $str ) == false )
-		$str = utf8_encode( $str );
+function wxr_cdata($str) {
+	if (seems_utf8($str) == false)
+		$str = utf8_encode($str);
 
 	// $str = ent2ncr(esc_html($str));
-	$str = "<![CDATA[$str" . ( ( substr( $str, -1 ) == ']' ) ? ' ' : '' ) . ']]>';
+	$str = "<![CDATA[$str" . ((substr($str, -1) == ']') ? ' ' : '') . ']]>';
 
 	return $str;
 }
@@ -101,7 +101,7 @@ function wxr_cdata( $str ) {
  */
 function wxr_site_url() {
 	// ms: the base url
-	if ( is_multisite() )
+	if (is_multisite())
 		return network_home_url();
 	// wp: the blog url
 	else
@@ -115,11 +115,11 @@ function wxr_site_url() {
  *
  * @param object $tag Tag Object
  */
-function wxr_tag_description( $tag ) {
-	if ( empty( $tag->description ) )
+function wxr_tag_description($tag) {
+	if (empty($tag->description))
 		return;
 
-	echo '<wp:tag_description>' . wxr_cdata( $tag->description ) . '</wp:tag_description>';
+	echo '<wp:tag_description>' . wxr_cdata($tag->description) . '</wp:tag_description>';
 }
 
 /**
@@ -129,11 +129,11 @@ function wxr_tag_description( $tag ) {
  *
  * @param object $term Term Object
  */
-function wxr_term_name( $term ) {
-	if ( empty( $term->name ) )
+function wxr_term_name($term) {
+	if (empty($term->name))
 		return;
 
-	echo '<wp:term_name>' . wxr_cdata( $term->name ) . '</wp:term_name>';
+	echo '<wp:term_name>' . wxr_cdata($term->name) . '</wp:term_name>';
 }
 
 /**
@@ -143,11 +143,11 @@ function wxr_term_name( $term ) {
  *
  * @param object $term Term Object
  */
-function wxr_term_description( $term ) {
-	if ( empty( $term->description ) )
+function wxr_term_description($term) {
+	if (empty($term->description))
 		return;
 
-	echo '<wp:term_description>' . wxr_cdata( $term->description ) . '</wp:term_description>';
+	echo '<wp:term_description>' . wxr_cdata($term->description) . '</wp:term_description>';
 }
 
 /**
@@ -159,27 +159,27 @@ function wxr_authors_list() {
 	global $wpdb;
 
 	$authors = array();
-	$results = $wpdb->get_results( "SELECT DISTINCT post_author FROM $wpdb->posts" );
-	foreach ( (array) $results as $result )
-		$authors[] = get_userdata( $result->post_author );
+	$results = $wpdb->get_results("SELECT DISTINCT post_author FROM $wpdb->posts");
+	foreach ((array) $results as $result)
+		$authors[] = get_userdata($result->post_author);
 
-	$authors = array_filter( $authors );
+	$authors = array_filter($authors);
 
-	foreach( $authors as $author ) {
+	foreach ($authors as $author) {
 		echo "\t<wp:author>";
 		echo '<wp:author_id>' . $author->ID . '</wp:author_id>';
 		echo '<wp:author_login>' . $author->user_login . '</wp:author_login>';
 		echo '<wp:author_email>' . $author->user_email . '</wp:author_email>';
-		echo '<wp:author_display_name>' . wxr_cdata( $author->display_name ) . '</wp:author_display_name>';
-		echo '<wp:author_first_name>' . wxr_cdata( $author->user_firstname ) . '</wp:author_first_name>';
-		echo '<wp:author_last_name>' . wxr_cdata( $author->user_lastname ) . '</wp:author_last_name>';
+		echo '<wp:author_display_name>' . wxr_cdata($author->display_name) . '</wp:author_display_name>';
+		echo '<wp:author_first_name>' . wxr_cdata($author->user_firstname) . '</wp:author_first_name>';
+		echo '<wp:author_last_name>' . wxr_cdata($author->user_lastname) . '</wp:author_last_name>';
 		echo "</wp:author>\n";
 	}
 }
 
-header( 'Content-Description: File Transfer' );
-header( 'Content-Disposition: attachment; filename=advanced-custom-field-export.xml' );
-header( 'Content-Type: text/xml; charset=' . get_option( 'blog_charset' ), true );
+header('Content-Description: File Transfer');
+header('Content-Disposition: attachment; filename=advanced-custom-field-export.xml');
+header('Content-Type: text/xml; charset=' . get_option('blog_charset'), true);
 
 
 echo '<?xml version="1.0" encoding="' . get_bloginfo('charset') . "\" ?>\n";
@@ -202,7 +202,7 @@ echo '<?xml version="1.0" encoding="' . get_bloginfo('charset') . "\" ?>\n";
 <!-- 7. WordPress will then import each of the posts, pages, comments, categories, etc. -->
 <!--    contained in this file into your site. -->
 
-<?php the_generator( 'export' ); ?>
+<?php the_generator('export'); ?>
 <rss version="2.0"
 	xmlns:excerpt="http://wordpress.org/export/<?php echo WXR_VERSION; ?>/excerpt/"
 	xmlns:content="http://purl.org/rss/1.0/modules/content/"
@@ -212,16 +212,16 @@ echo '<?xml version="1.0" encoding="' . get_bloginfo('charset') . "\" ?>\n";
 >
 
 <channel>
-	<title><?php bloginfo_rss( 'name' ); ?></title>
-	<link><?php bloginfo_rss( 'url' ); ?></link>
-	<description><?php bloginfo_rss( 'description' ); ?></description>
-	<pubDate><?php echo date( 'D, d M Y H:i:s +0000' ); ?></pubDate>
-	<language><?php echo get_option( 'rss_language' ); ?></language>
+	<title><?php bloginfo_rss('name'); ?></title>
+	<link><?php bloginfo_rss('url'); ?></link>
+	<description><?php bloginfo_rss('description'); ?></description>
+	<pubDate><?php echo date('D, d M Y H:i:s +0000'); ?></pubDate>
+	<language><?php echo get_option('rss_language'); ?></language>
 	<wp:wxr_version><?php echo WXR_VERSION; ?></wp:wxr_version>
 	<wp:base_site_url><?php echo wxr_site_url(); ?></wp:base_site_url>
-	<wp:base_blog_url><?php bloginfo_rss( 'url' ); ?></wp:base_blog_url>
+	<wp:base_blog_url><?php bloginfo_rss('url'); ?></wp:base_blog_url>
 <?php wxr_authors_list(); ?>
-<?php if ( $my_options['acf_posts'] ) {
+<?php if ($my_options['acf_posts']) {
 
 	global $wp_query, $wpdb, $post;
 	$wp_query->in_the_loop = true; // Fake being in the loop.
@@ -230,18 +230,18 @@ echo '<?xml version="1.0" encoding="' . get_bloginfo('charset') . "\" ?>\n";
 	$where = 'WHERE ID IN (' . substr(str_repeat('%d,', count($my_options['acf_posts'])), 0, -1) . ')';
 	
 	// now prepare the SQL based on the %d + $_POST data
-	$posts = $wpdb->get_results( $wpdb->prepare("SELECT * FROM {$wpdb->posts} $where", $my_options['acf_posts']));
+	$posts = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->posts} $where", $my_options['acf_posts']));
 
 	// Begin Loop
-	foreach ( $posts as $post ) {
-		setup_postdata( $post );
+	foreach ($posts as $post) {
+		setup_postdata($post);
 ?>
 	<item>
-		<title><?php echo apply_filters( 'the_title_rss', $post->post_title ); ?></title>
+		<title><?php echo apply_filters('the_title_rss', $post->post_title); ?></title>
 		<link><?php the_permalink_rss() ?></link>
-		<pubDate><?php echo mysql2date( 'D, d M Y H:i:s +0000', get_post_time( 'Y-m-d H:i:s', true ), false ); ?></pubDate>
-		<dc:creator><?php echo get_the_author_meta( 'login' ); ?></dc:creator>
-		<guid isPermaLink="false"><?php esc_url( the_guid() ); ?></guid>
+		<pubDate><?php echo mysql2date('D, d M Y H:i:s +0000', get_post_time('Y-m-d H:i:s', true), false); ?></pubDate>
+		<dc:creator><?php echo get_the_author_meta('login'); ?></dc:creator>
+		<guid isPermaLink="false"><?php esc_url(the_guid()); ?></guid>
 		<wp:post_id><?php echo $post->ID; ?></wp:post_id>
 		<wp:post_date><?php echo $post->post_date; ?></wp:post_date>
 		<wp:post_date_gmt><?php echo $post->post_date_gmt; ?></wp:post_date_gmt>
@@ -253,17 +253,17 @@ echo '<?xml version="1.0" encoding="' . get_bloginfo('charset') . "\" ?>\n";
 		<wp:menu_order><?php echo $post->menu_order; ?></wp:menu_order>
 		<wp:post_type><?php echo $post->post_type; ?></wp:post_type>
 		<wp:post_password><?php echo $post->post_password; ?></wp:post_password>
-<?php	$postmeta = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM $wpdb->postmeta WHERE post_id = %d", $post->ID ) );
-		foreach( $postmeta as $meta ) : if ( $meta->meta_key != '_edit_lock' ) : 
+<?php	$postmeta = $wpdb->get_results($wpdb->prepare("SELECT * FROM $wpdb->postmeta WHERE post_id = %d", $post->ID));
+		foreach ($postmeta as $meta) : if ($meta->meta_key != '_edit_lock') : 
 			
-			$meta->meta_value = maybe_unserialize( $meta->meta_value );
-				$meta->meta_value = fix_line_breaks( $meta->meta_value );
-			$meta->meta_value = maybe_serialize( $meta->meta_value );
+			$meta->meta_value = maybe_unserialize($meta->meta_value);
+				$meta->meta_value = fix_line_breaks($meta->meta_value);
+			$meta->meta_value = maybe_serialize($meta->meta_value);
 						
 		?>
 		<wp:postmeta>
 			<wp:meta_key><?php echo $meta->meta_key; ?></wp:meta_key>
-			<wp:meta_value><?php echo wxr_cdata( $meta->meta_value ); ?></wp:meta_value>
+			<wp:meta_value><?php echo wxr_cdata($meta->meta_value); ?></wp:meta_value>
 		</wp:postmeta>
 <?php	endif; endforeach; ?>
 	</item>

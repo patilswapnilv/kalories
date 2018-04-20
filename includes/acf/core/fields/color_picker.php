@@ -16,8 +16,8 @@ class acf_field_color_picker extends acf_field
 	{
 		// vars
 		$this->name = 'color_picker';
-		$this->label = __("Color Picker",'acf');
-		$this->category = __("jQuery",'acf');
+		$this->label = __("Color Picker", 'acf');
+		$this->category = __("jQuery", 'acf');
 		$this->defaults = array(
 			'default_value'	=>	'',
 		);
@@ -41,19 +41,19 @@ class acf_field_color_picker extends acf_field
 	*  @date	23/01/13
 	*/
 	
-	function create_field( $field )
+	function create_field($field)
 	{
 		// vars
-		$o = array( 'id', 'class', 'name', 'value' );
+		$o = array('id', 'class', 'name', 'value');
 		$e = '';
 		
 		
 		$e .= '<div class="acf-color_picker">';
 		$e .= '<input type="text"';
 		
-		foreach( $o as $k )
+		foreach ($o as $k)
 		{
-			$e .= ' ' . $k . '="' . esc_attr( $field[ $k ] ) . '"';	
+			$e .= ' ' . $k . '="' . esc_attr($field[$k]) . '"';	
 		}
 		
 		$e .= ' />';
@@ -78,7 +78,7 @@ class acf_field_color_picker extends acf_field
 	*  @param	$field	- an array holding all the field's data
 	*/
 	
-	function create_options( $field )
+	function create_options($field)
 	{
 		// vars
 		$key = $field['name'];
@@ -86,13 +86,13 @@ class acf_field_color_picker extends acf_field
 		?>
 <tr class="field_option field_option_<?php echo $this->name; ?>">
 	<td class="label">
-		<label><?php _e("Default Value",'acf'); ?></label>
+		<label><?php _e("Default Value", 'acf'); ?></label>
 	</td>
 	<td>
 		<?php 
 		do_action('acf/create_field', array(
 			'type'			=>	'text',
-			'name'			=>	'fields[' .$key.'][default_value]',
+			'name'			=>	'fields[' . $key . '][default_value]',
 			'value'			=>	$field['default_value'],
 			'placeholder'	=>	'#ffffff'
 		));

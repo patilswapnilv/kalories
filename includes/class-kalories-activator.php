@@ -31,7 +31,7 @@ class Kalories_Activator {
 	 */
 	public static function activate() {
 
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-kalories-admin.php';
+		require_once plugin_dir_path(dirname(__FILE__)) . 'admin/class-kalories-admin.php';
 
 		Kalories_Admin::new_cpt_meal();
 		Kalories_Admin::new_cpt_kalories_cal();
@@ -39,16 +39,16 @@ class Kalories_Activator {
 
 		flush_rewrite_rules();
 		//
-		$opts 		= array();
-		$options 	= Kalories_Admin::get_options_list();
+		$opts = array();
+		$options = Kalories_Admin::get_options_list();
 
-		foreach ( $options as $option ) {
+		foreach ($options as $option) {
 
-			$opts[ $option[0] ] = $option[2];
+			$opts[$option[0]] = $option[2];
 
 		}
 
-		update_option( 'kalories-options', $opts );
+		update_option('kalories-options', $opts);
 
 		Kalories_Admin::add_admin_notices();
 

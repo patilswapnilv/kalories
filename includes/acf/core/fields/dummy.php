@@ -40,7 +40,7 @@ class acf_field_dummy extends acf_field
 	*  @return	$value - the value to be saved in te database
 	*/
 	
-	function load_value( $value, $post_id, $field )
+	function load_value($value, $post_id, $field)
 	{
 		return $value;
 	}
@@ -62,7 +62,7 @@ class acf_field_dummy extends acf_field
 	*  @return	$value	- the modified value
 	*/
 	
-	function format_value( $value, $post_id, $field )
+	function format_value($value, $post_id, $field)
 	{
 		return $value;
 	}
@@ -84,7 +84,7 @@ class acf_field_dummy extends acf_field
 	*  @return	$value	- the modified value
 	*/
 	
-	function format_value_for_api( $value, $post_id, $field )
+	function format_value_for_api($value, $post_id, $field)
 	{
 		return $value;
 	}
@@ -106,7 +106,7 @@ class acf_field_dummy extends acf_field
 	*  @return	$value - the modified value
 	*/
 	
-	function update_value( $value, $post_id, $field )
+	function update_value($value, $post_id, $field)
 	{
 		return $value;
 	}
@@ -126,7 +126,7 @@ class acf_field_dummy extends acf_field
 	*  @return	$field - the field array holding all the field options
 	*/
 	
-	function load_field( $field )
+	function load_field($field)
 	{
 		return $field;
 	}
@@ -147,7 +147,7 @@ class acf_field_dummy extends acf_field
 	*  @return	$field - the modified field
 	*/
 
-	function update_field( $field, $post_id )
+	function update_field($field, $post_id)
 	{
 		return $field;
 	}
@@ -165,7 +165,7 @@ class acf_field_dummy extends acf_field
 	*  @param	$field - an array holding all the field's data
 	*/
 	
-	function create_field( $field )
+	function create_field($field)
 	{
 		
 	}
@@ -184,7 +184,7 @@ class acf_field_dummy extends acf_field
 	*  @param	$field	- an array holding all the field's data
 	*/
 	
-	function create_options( $field )
+	function create_options($field)
 	{
 		
 	}

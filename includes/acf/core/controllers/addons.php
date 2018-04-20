@@ -25,7 +25,7 @@ class acf_addons
 	function __construct()
 	{
 		// actions
-		add_action('admin_menu', array($this,'admin_menu'), 11, 0);
+		add_action('admin_menu', array($this, 'admin_menu'), 11, 0);
 	}
 	
 	
@@ -39,14 +39,14 @@ class acf_addons
 	function admin_menu()
 	{
 		// add page
-		$page = add_submenu_page('edit.php?post_type=acf', __('Add-ons','acf'), __('Add-ons','acf'), 'manage_options', 'acf-addons', array($this,'html'));
+		$page = add_submenu_page('edit.php?post_type=acf', __('Add-ons', 'acf'), __('Add-ons', 'acf'), 'manage_options', 'acf-addons', array($this, 'html'));
 		
 		
 		// actions
-		add_action('load-' . $page, array($this,'load'));
+		add_action('load-' . $page, array($this, 'load'));
 		add_action('admin_print_scripts-' . $page, array($this, 'admin_print_scripts'));
 		add_action('admin_print_styles-' . $page, array($this, 'admin_print_styles'));
-		add_action('admin_head-' . $page, array($this,'admin_head'));
+		add_action('admin_head-' . $page, array($this, 'admin_head'));
 	}
 	
 	
@@ -127,29 +127,29 @@ class acf_addons
 		
 		$premium = array();
 		$premium[] = array(
-			'title' => __("Repeater Field",'acf'),
-			'description' => __("Create infinite rows of repeatable data with this versatile interface!",'acf'),
+			'title' => __("Repeater Field", 'acf'),
+			'description' => __("Create infinite rows of repeatable data with this versatile interface!", 'acf'),
 			'thumbnail' => $dir . 'images/add-ons/repeater-field-thumb.jpg',
 			'active' => class_exists('acf_field_repeater'),
 			'url' => 'http://www.advancedcustomfields.com/add-ons/repeater-field/'
 		);
 		$premium[] = array(
-			'title' => __("Gallery Field",'acf'),
-			'description' => __("Create image galleries in a simple and intuitive interface!",'acf'),
+			'title' => __("Gallery Field", 'acf'),
+			'description' => __("Create image galleries in a simple and intuitive interface!", 'acf'),
 			'thumbnail' => $dir . 'images/add-ons/gallery-field-thumb.jpg',
 			'active' => class_exists('acf_field_gallery'),
 			'url' => 'http://www.advancedcustomfields.com/add-ons/gallery-field/'
 		);
 		$premium[] = array(
-			'title' => __("Options Page",'acf'),
-			'description' => __("Create global data to use throughout your website!",'acf'),
+			'title' => __("Options Page", 'acf'),
+			'description' => __("Create global data to use throughout your website!", 'acf'),
 			'thumbnail' => $dir . 'images/add-ons/options-page-thumb.jpg',
 			'active' => class_exists('acf_options_page_plugin'),
 			'url' => 'http://www.advancedcustomfields.com/add-ons/options-page/'
 		);
 		$premium[] = array(
-			'title' => __("Flexible Content Field",'acf'),
-			'description' => __("Create unique designs with a flexible content layout manager!",'acf'),
+			'title' => __("Flexible Content Field", 'acf'),
+			'description' => __("Create unique designs with a flexible content layout manager!", 'acf'),
 			'thumbnail' => $dir . 'images/add-ons/flexible-content-field-thumb.jpg',
 			'active' => class_exists('acf_field_flexible_content'),
 			'url' => 'http://www.advancedcustomfields.com/add-ons/flexible-content-field/'
@@ -158,29 +158,29 @@ class acf_addons
 		
 		$free = array();
 		$free[] = array(
-			'title' => __("Gravity Forms Field",'acf'),
-			'description' => __("Creates a select field populated with Gravity Forms!",'acf'),
+			'title' => __("Gravity Forms Field", 'acf'),
+			'description' => __("Creates a select field populated with Gravity Forms!", 'acf'),
 			'thumbnail' => $dir . 'images/add-ons/gravity-forms-field-thumb.jpg',
 			'active' => class_exists('gravity_forms_field'),
 			'url' => 'https://github.com/stormuk/Gravity-Forms-ACF-Field/'
 		);
 		$free[] = array(
-			'title' => __("Date & Time Picker",'acf'),
-			'description' => __("jQuery date & time picker",'acf'),
+			'title' => __("Date & Time Picker", 'acf'),
+			'description' => __("jQuery date & time picker", 'acf'),
 			'thumbnail' => $dir . 'images/add-ons/date-time-field-thumb.jpg',
 			'active' => class_exists('acf_field_date_time_picker'),
 			'url' => 'http://wordpress.org/extend/plugins/acf-field-date-time-picker/'
 		);
 		$free[] = array(
-			'title' => __("Google Map Extended",'acf'),
-			'description' => __("Find addresses and coordinates of a desired location",'acf'),
+			'title' => __("Google Map Extended", 'acf'),
+			'description' => __("Find addresses and coordinates of a desired location", 'acf'),
 			'thumbnail' => $dir . 'images/add-ons/google-maps-field-thumb.jpg',
 			'active' => class_exists('acf_field_google_map_extended'),
 			'url' => 'https://wordpress.org/plugins/advanced-custom-fields-google-map-extended/'
 		);
 		$free[] = array(
-			'title' => __("Contact Form 7 Field",'acf'),
-			'description' => __("Assign one or more contact form 7 forms to a post",'acf'),
+			'title' => __("Contact Form 7 Field", 'acf'),
+			'description' => __("Assign one or more contact form 7 forms to a post", 'acf'),
 			'thumbnail' => $dir . 'images/add-ons/cf7-field-thumb.jpg',
 			'active' => class_exists('acf_field_cf7'),
 			'url' => 'https://github.com/taylormsj/acf-cf7-field/'
@@ -190,11 +190,11 @@ class acf_addons
 <div class="wrap" style="max-width:970px;">
 
 	<div class="icon32" id="icon-acf"><br></div>
-	<h2 style="margin: 4px 0 15px;"><?php _e("Advanced Custom Fields Add-Ons",'acf'); ?></h2>
+	<h2 style="margin: 4px 0 15px;"><?php _e("Advanced Custom Fields Add-Ons", 'acf'); ?></h2>
 	
 	<div class="acf-alert">
-	<p style=""><?php _e("The following Add-ons are available to increase the functionality of the Advanced Custom Fields plugin.",'acf'); ?><br />
-	<?php _e("Each Add-on can be installed as a separate plugin (receives updates) or included in your theme (does not receive updates).",'acf'); ?></p>
+	<p style=""><?php _e("The following Add-ons are available to increase the functionality of the Advanced Custom Fields plugin.", 'acf'); ?><br />
+	<?php _e("Each Add-on can be installed as a separate plugin (receives updates) or included in your theme (does not receive updates).", 'acf'); ?></p>
 	</div>
 	<?php /*
 	<div class="acf-alert">
@@ -205,8 +205,8 @@ class acf_addons
 	<div id="add-ons" class="clearfix">
 		
 		<div class="add-on-group clearfix">
-		<?php foreach( $premium as $addon ): ?>
-		<div class="add-on wp-box <?php if( $addon['active'] ): ?>add-on-active<?php endif; ?>">
+		<?php foreach ($premium as $addon): ?>
+		<div class="add-on wp-box <?php if ($addon['active']): ?>add-on-active<?php endif; ?>">
 			<a target="_blank" href="<?php echo $addon['url']; ?>">
 				<img src="<?php echo $addon['thumbnail']; ?>" />
 			</a>
@@ -215,10 +215,10 @@ class acf_addons
 				<p><?php echo $addon['description']; ?></p>
 			</div>
 			<div class="footer">
-				<?php if( $addon['active'] ): ?>
-					<a class="button button-disabled"><span class="acf-sprite-tick"></span><?php _e("Installed",'acf'); ?></a>
+				<?php if ($addon['active']): ?>
+					<a class="button button-disabled"><span class="acf-sprite-tick"></span><?php _e("Installed", 'acf'); ?></a>
 				<?php else: ?>
-					<a target="_blank" href="<?php echo $addon['url']; ?>" class="button"><?php _e("Purchase & Install",'acf'); ?></a>
+					<a target="_blank" href="<?php echo $addon['url']; ?>" class="button"><?php _e("Purchase & Install", 'acf'); ?></a>
 				<?php endif; ?>
 			</div>
 		</div>
@@ -226,8 +226,8 @@ class acf_addons
 		</div>
 		
 		<div class="add-on-group clearfix">
-		<?php foreach( $free as $addon ): ?>
-		<div class="add-on wp-box <?php if( $addon['active'] ): ?>add-on-active<?php endif; ?>">
+		<?php foreach ($free as $addon): ?>
+		<div class="add-on wp-box <?php if ($addon['active']): ?>add-on-active<?php endif; ?>">
 			<a target="_blank" href="<?php echo $addon['url']; ?>">
 				<img src="<?php echo $addon['thumbnail']; ?>" />
 			</a>
@@ -236,10 +236,10 @@ class acf_addons
 				<p><?php echo $addon['description']; ?></p>
 			</div>
 			<div class="footer">
-				<?php if( $addon['active'] ): ?>
-					<a class="button button-disabled"><span class="acf-sprite-tick"></span><?php _e("Installed",'acf'); ?></a>
+				<?php if ($addon['active']): ?>
+					<a class="button button-disabled"><span class="acf-sprite-tick"></span><?php _e("Installed", 'acf'); ?></a>
 				<?php else: ?>
-					<a target="_blank" href="<?php echo $addon['url']; ?>" class="button"><?php _e("Download",'acf'); ?></a>
+					<a target="_blank" href="<?php echo $addon['url']; ?>" class="button"><?php _e("Download", 'acf'); ?></a>
 				<?php endif; ?>
 			</div>
 		</div>
