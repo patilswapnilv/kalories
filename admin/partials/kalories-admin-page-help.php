@@ -16,4 +16,4 @@
 <!-- This file should primarily consist of HTML with a little bit of PHP. -->
 
 <?php
-echo "kalories-admin-display"; ?>
+echo "kalories-admin-page-help"; ?>
