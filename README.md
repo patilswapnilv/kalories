@@ -1,5 +1,5 @@
-!https://scrutinizer-ci.com/g/patilswapnilv/kalories/badges/coverage.png?b=dev!:https://scrutinizer-ci.com/g/patilswapnilv/kalories/?branch=dev
-!https://scrutinizer-ci.com/g/patilswapnilv/kalories/badges/coverage.png?b=dev!:https://scrutinizer-ci.com/g/patilswapnilv/kalories/?branch=dev
+https://scrutinizer-ci.com/g/patilswapnilv/kalories/badges/quality-score.png?b=dev
+https://scrutinizer-ci.com/g/patilswapnilv/kalories/badges/coverage.png?b=dev
 
 === Kalories ===
 Contributors: patilswapnilv
