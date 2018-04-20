@@ -4,6 +4,7 @@
 [![Code Intelligence Status](https://scrutinizer-ci.com/g/patilswapnilv/kalories/badges/code-intelligence.svg?b=dev)](https://scrutinizer-ci.com/code-intelligence)
 
 === Kalories ===
+
 Contributors: patilswapnilv
 Donate link: https://swapnil.blog/
 Tags: food, meal, health, calories
