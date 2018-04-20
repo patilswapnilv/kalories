@@ -15,8 +15,8 @@ class acf_field_radio extends acf_field
 	{
 		// vars
 		$this->name = 'radio';
-		$this->label = __("Radio Button",'acf');
-		$this->category = __("Choice",'acf');
+		$this->label = __("Radio Button", 'acf');
+		$this->category = __("Choice", 'acf');
 		$this->defaults = array(
 			'layout'			=>	'vertical',
 			'choices'			=>	array(),
@@ -27,7 +27,7 @@ class acf_field_radio extends acf_field
 		
 		
 		// do not delete!
-    	parent::__construct();
+		parent::__construct();
   
 	}
 	
@@ -44,7 +44,7 @@ class acf_field_radio extends acf_field
 	*  @date	23/01/13
 	*/
 	
-	function create_field( $field )
+	function create_field($field)
 	{
 		// vars
 		$i = 0;
@@ -52,9 +52,9 @@ class acf_field_radio extends acf_field
 
 		
 		// add choices
-		if( is_array($field['choices']) )
+		if (is_array($field['choices']))
 		{
-			foreach( $field['choices'] as $key => $value )
+			foreach ($field['choices'] as $key => $value)
 			{
 				// vars
 				$i++;
@@ -62,16 +62,15 @@ class acf_field_radio extends acf_field
 				
 				
 				// if there is no value and this is the first of the choices, select this on by default
-				if( $field['value'] === false )
+				if ($field['value'] === false)
 				{
-					if( $i === 1 )
+					if ($i === 1)
 					{
 						$atts = 'checked="checked" data-checked="checked"';
 					}
-				}
-				else
+				} else
 				{
-					if( strval($key) === strval($field['value']) )
+					if (strval($key) === strval($field['value']))
 					{
 						$atts = 'checked="checked" data-checked="checked"';
 					}
@@ -79,25 +78,25 @@ class acf_field_radio extends acf_field
 				
 				
 				// HTML
-				$e .= '<li><label><input id="' . esc_attr($field['id']) . '-' . esc_attr($key) . '" type="radio" name="' . esc_attr($field['name']) . '" value="' . esc_attr($key) . '" ' . esc_attr( $atts ) . ' />' . $value . '</label></li>';
+				$e .= '<li><label><input id="' . esc_attr($field['id']) . '-' . esc_attr($key) . '" type="radio" name="' . esc_attr($field['name']) . '" value="' . esc_attr($key) . '" ' . esc_attr($atts) . ' />' . $value . '</label></li>';
 			}
 		}
 		
 		
 		// other choice
-		if( $field['other_choice'] )
+		if ($field['other_choice'])
 		{
 			// vars
 			$atts = '';
 			$atts2 = 'name="" value="" style="display:none"';
 			
 			
-			if( $field['value'] !== false )
+			if ($field['value'] !== false)
 			{
-				if( !isset($field['choices'][ $field['value'] ]) )
+				if (!isset($field['choices'][$field['value']]))
 				{
 					$atts = 'checked="checked" data-checked="checked"';
-					$atts2 = 'name="' . esc_attr($field['name']) . '" value="' . esc_attr($field['value']) . '"' ;
+					$atts2 = 'name="' . esc_attr($field['name']) . '" value="' . esc_attr($field['value']) . '"';
 				}
 			}
 			
@@ -126,17 +125,17 @@ class acf_field_radio extends acf_field
 	*  @param	$field	- an array holding all the field's data
 	*/
 	
-	function create_options( $field )
+	function create_options($field)
 	{
 		// vars
 		$key = $field['name'];
 		
 		// implode checkboxes so they work in a textarea
-		if( is_array($field['choices']) )
+		if (is_array($field['choices']))
 		{		
-			foreach( $field['choices'] as $k => $v )
+			foreach ($field['choices'] as $k => $v)
 			{
-				$field['choices'][ $k ] = $k . ' : ' . $v;
+				$field['choices'][$k] = $k . ' : ' . $v;
 			}
 			$field['choices'] = implode("\n", $field['choices']);
 		}
@@ -144,14 +143,14 @@ class acf_field_radio extends acf_field
 		?>
 		<tr class="field_option field_option_<?php echo $this->name; ?>">
 			<td class="label">
-				<label for=""><?php _e("Choices",'acf'); ?></label>
-				<p class="description"><?php _e("Enter your choices one per line",'acf'); ?><br />
+				<label for=""><?php _e("Choices", 'acf'); ?></label>
+				<p class="description"><?php _e("Enter your choices one per line", 'acf'); ?><br />
 				<br />
-				<?php _e("Red",'acf'); ?><br />
-				<?php _e("Blue",'acf'); ?><br />
+				<?php _e("Red", 'acf'); ?><br />
+				<?php _e("Blue", 'acf'); ?><br />
 				<br />
-				<?php _e("red : Red",'acf'); ?><br />
-				<?php _e("blue : Blue",'acf'); ?><br />
+				<?php _e("red : Red", 'acf'); ?><br />
+				<?php _e("blue : Blue", 'acf'); ?><br />
 				</p>
 			</td>
 			<td>
@@ -160,7 +159,7 @@ class acf_field_radio extends acf_field
 				do_action('acf/create_field', array(
 					'type'	=>	'textarea',
 					'class' => 	'textarea field_option-choices',
-					'name'	=>	'fields['.$key.'][choices]',
+					'name'	=>	'fields[' . $key . '][choices]',
 					'value'	=>	$field['choices'],
 				));
 				
@@ -170,19 +169,19 @@ class acf_field_radio extends acf_field
 				
 				do_action('acf/create_field', array(
 					'type'		=>	'true_false',
-					'name'		=>	'fields['.$key.'][other_choice]',
+					'name'		=>	'fields[' . $key . '][other_choice]',
 					'value'		=>	$field['other_choice'],
 					'message'	=>	__("Add 'other' choice to allow for custom values", 'acf')
 				));
 				
 				?>
 				</div>
-				<div class="radio-option-save_other_choice" <?php if( !$field['other_choice'] ): ?>style="display:none"<?php endif; ?>>
+				<div class="radio-option-save_other_choice" <?php if (!$field['other_choice']): ?>style="display:none"<?php endif; ?>>
 				<?php
 				
 				do_action('acf/create_field', array(
 					'type'		=>	'true_false',
-					'name'		=>	'fields['.$key.'][save_other_choice]',
+					'name'		=>	'fields[' . $key . '][save_other_choice]',
 					'value'		=>	$field['save_other_choice'],
 					'message'	=>	__("Save 'other' values to the field's choices", 'acf')
 				));
@@ -193,14 +192,14 @@ class acf_field_radio extends acf_field
 		</tr>
 		<tr class="field_option field_option_<?php echo $this->name; ?>">
 			<td class="label">
-				<label><?php _e("Default Value",'acf'); ?></label>
+				<label><?php _e("Default Value", 'acf'); ?></label>
 			</td>
 			<td>
 				<?php
 				
 				do_action('acf/create_field', array(
 					'type'	=>	'text',
-					'name'	=>	'fields['.$key.'][default_value]',
+					'name'	=>	'fields[' . $key . '][default_value]',
 					'value'	=>	$field['default_value'],
 				));
 				
@@ -209,19 +208,19 @@ class acf_field_radio extends acf_field
 		</tr>
 		<tr class="field_option field_option_<?php echo $this->name; ?>">
 			<td class="label">
-				<label for=""><?php _e("Layout",'acf'); ?></label>
+				<label for=""><?php _e("Layout", 'acf'); ?></label>
 			</td>
 			<td>
 				<?php
 				
 				do_action('acf/create_field', array(
 					'type'	=>	'radio',
-					'name'	=>	'fields['.$key.'][layout]',
+					'name'	=>	'fields[' . $key . '][layout]',
 					'value'	=>	$field['layout'],
 					'layout' => 'horizontal', 
 					'choices' => array(
-						'vertical' => __("Vertical",'acf'), 
-						'horizontal' => __("Horizontal",'acf')
+						'vertical' => __("Vertical", 'acf'), 
+						'horizontal' => __("Horizontal", 'acf')
 					)
 				));
 				
@@ -249,20 +248,20 @@ class acf_field_radio extends acf_field
 	*  @return	$value - the modified value
 	*/
 	
-	function update_value( $value, $post_id, $field )
+	function update_value($value, $post_id, $field)
 	{
 		// validate
-		if( $field['save_other_choice'] )
+		if ($field['save_other_choice'])
 		{
 			// value isn't in choices yet
-			if( !isset($field['choices'][ $value ]) )
+			if (!isset($field['choices'][$value]))
 			{
 				// update $field
-				$field['choices'][ $value ] = $value;
+				$field['choices'][$value] = $value;
 				
 				
 				// can save
-				if( isset($field['field_group']) )
+				if (isset($field['field_group']))
 				{
 					do_action('acf/update_field', $field, $field['field_group']);
 				}

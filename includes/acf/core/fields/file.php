@@ -16,25 +16,25 @@ class acf_field_file extends acf_field
 	{
 		// vars
 		$this->name = 'file';
-		$this->label = __("File",'acf');
-		$this->category = __("Content",'acf');
+		$this->label = __("File", 'acf');
+		$this->category = __("Content", 'acf');
 		$this->defaults = array(
 			'save_format'	=>	'object',
 			'library' 		=>	'all'
 		);
 		$this->l10n = array(
-			'select'		=>	__("Select File",'acf'),
-			'edit'			=>	__("Edit File",'acf'),
-			'update'		=>	__("Update File",'acf'),
-			'uploadedTo'	=>	__("Uploaded to this post",'acf'),
+			'select'		=>	__("Select File", 'acf'),
+			'edit'			=>	__("Edit File", 'acf'),
+			'update'		=>	__("Update File", 'acf'),
+			'uploadedTo'	=>	__("Uploaded to this post", 'acf'),
 		);
 		
 		
 		// do not delete!
-    	parent::__construct();
+		parent::__construct();
     	
     	
-    	// filters
+		// filters
 		add_filter('get_media_item_args', array($this, 'get_media_item_args'));
 		add_filter('wp_prepare_attachment_for_js', array($this, 'wp_prepare_attachment_for_js'), 10, 3);
 		
@@ -57,7 +57,7 @@ class acf_field_file extends acf_field
 	*  @date	23/01/13
 	*/
 	
-	function create_field( $field )
+	function create_field($field)
 	{
 		// vars
 		$o = array(
@@ -69,20 +69,20 @@ class acf_field_file extends acf_field
 			'name'		=>	'',
 		);
 		
-		if( $field['value'] && is_numeric($field['value']) )
+		if ($field['value'] && is_numeric($field['value']))
 		{
-			$file = get_post( $field['value'] );
+			$file = get_post($field['value']);
 			
-			if( $file )
+			if ($file)
 			{
 				$o['class'] = 'active';
-				$o['icon'] = wp_mime_type_icon( $file->ID );
+				$o['icon'] = wp_mime_type_icon($file->ID);
 				$o['title']	= $file->post_title;
-				$o['size'] = size_format(filesize( get_attached_file( $file->ID ) ));
-				$o['url'] = wp_get_attachment_url( $file->ID );
+				$o['size'] = size_format(filesize(get_attached_file($file->ID)));
+				$o['url'] = wp_get_attachment_url($file->ID);
 				
 				$explode = explode('/', $o['url']);
-				$o['name'] = end( $explode );				
+				$o['name'] = end($explode);				
 			}
 		}
 		
@@ -120,7 +120,7 @@ class acf_field_file extends acf_field
 	<div class="no-file">
 		<ul class="hl clearfix">
 			<li>
-				<span><?php _e('No File Selected','acf'); ?></span>. <a href="#" class="button add-file"><?php _e('Add File','acf'); ?></a>
+				<span><?php _e('No File Selected', 'acf'); ?></span>. <a href="#" class="button add-file"><?php _e('Add File', 'acf'); ?></a>
 			</li>
 		</ul>
 	</div>
@@ -142,7 +142,7 @@ class acf_field_file extends acf_field
 	*  @param	$field	- an array holding all the field's data
 	*/
 	
-	function create_options( $field )
+	function create_options($field)
 	{
 		// vars
 		$key = $field['name'];
@@ -150,20 +150,20 @@ class acf_field_file extends acf_field
 		?>
 <tr class="field_option field_option_<?php echo $this->name; ?>">
 	<td class="label">
-		<label><?php _e("Return Value",'acf'); ?></label>
+		<label><?php _e("Return Value", 'acf'); ?></label>
 	</td>
 	<td>
 		<?php
 		
 		do_action('acf/create_field', array(
 			'type'		=>	'radio',
-			'name'		=>	'fields['.$key.'][save_format]',
+			'name'		=>	'fields[' . $key . '][save_format]',
 			'value'		=>	$field['save_format'],
 			'layout'	=>	'horizontal',
 			'choices' 	=>	array(
-				'object'	=>	__("File Object",'acf'),
-				'url'		=>	__("File URL",'acf'),
-				'id'		=>	__("File ID",'acf')
+				'object'	=>	__("File Object", 'acf'),
+				'url'		=>	__("File URL", 'acf'),
+				'id'		=>	__("File ID", 'acf')
 			)
 		));
 		
@@ -172,14 +172,14 @@ class acf_field_file extends acf_field
 </tr>
 <tr class="field_option field_option_<?php echo $this->name; ?>">
 	<td class="label">
-		<label><?php _e("Library",'acf'); ?></label>
+		<label><?php _e("Library", 'acf'); ?></label>
 	</td>
 	<td>
 		<?php
 		
 		do_action('acf/create_field', array(
 			'type'		=>	'radio',
-			'name'		=>	'fields['.$key.'][library]',
+			'name'		=>	'fields[' . $key . '][library]',
 			'value'		=>	$field['library'],
 			'layout'	=>	'horizontal',
 			'choices' 	=>	array(
@@ -212,28 +212,28 @@ class acf_field_file extends acf_field
 	*  @return	$value	- the modified value
 	*/
 	
-	function format_value_for_api( $value, $post_id, $field )
+	function format_value_for_api($value, $post_id, $field)
 	{
 
 		// validate
-		if( !$value )
+		if (!$value)
 		{
 			return false;
 		}
 		
 		
 		// format
-		if( $field['save_format'] == 'url' )
+		if ($field['save_format'] == 'url')
 		{
 			$value = wp_get_attachment_url($value);
 		}
-		elseif( $field['save_format'] == 'object' )
+		elseif ($field['save_format'] == 'object')
 		{
-			$attachment = get_post( $value );
+			$attachment = get_post($value);
 			
 			
 			// validate
-			if( !$attachment )
+			if (!$attachment)
 			{
 				return false;	
 			}
@@ -247,7 +247,7 @@ class acf_field_file extends acf_field
 				'caption' => $attachment->post_excerpt,
 				'description' => $attachment->post_content,
 				'mime_type'	=> $attachment->post_mime_type,
-				'url' => wp_get_attachment_url( $attachment->ID ),
+				'url' => wp_get_attachment_url($attachment->ID),
 			);
 		}
 		
@@ -263,10 +263,10 @@ class acf_field_file extends acf_field
 	*  @created: 27/01/13
 	*/
 	
-	function get_media_item_args( $vars )
+	function get_media_item_args($vars)
 	{
-	    $vars['send'] = true;
-	    return($vars);
+		$vars['send'] = true;
+		return($vars);
 	}
 		
 	
@@ -293,24 +293,24 @@ class acf_field_file extends acf_field
 		
 		
 		// verify nonce
-		if( ! wp_verify_nonce($options['nonce'], 'acf_nonce') )
+		if (!wp_verify_nonce($options['nonce'], 'acf_nonce'))
 		{
 			die(0);
 		}
 		
 		
-		if( $options['files'] )
+		if ($options['files'])
 		{
-			foreach( $options['files'] as $id )
+			foreach ($options['files'] as $id)
 			{
 				$o = array();
-				$file = get_post( $id );
+				$file = get_post($id);
 					
 				$o['id'] = $file->ID;
-				$o['icon'] = wp_mime_type_icon( $file->ID );
-				$o['title']	= $file->post_title;
-				$o['size'] = size_format(filesize( get_attached_file( $file->ID ) ));
-				$o['url'] = wp_get_attachment_url( $file->ID );
+				$o['icon'] = wp_mime_type_icon($file->ID);
+				$o['title'] = $file->post_title;
+				$o['size'] = size_format(filesize(get_attached_file($file->ID)));
+				$o['url'] = wp_get_attachment_url($file->ID);
 				$o['name'] = end(explode('/', $o['url']));				
 				
 				$return[] = $o;
@@ -319,7 +319,7 @@ class acf_field_file extends acf_field
 		
 		
 		// return json
-		echo json_encode( $return );
+		echo json_encode($return);
 		die;
 		
    	}
@@ -341,16 +341,16 @@ class acf_field_file extends acf_field
 	*  @return	$value - the modified value
 	*/
 	
-	function update_value( $value, $post_id, $field )
+	function update_value($value, $post_id, $field)
 	{
 		// array?
-		if( is_array($value) && isset($value['id']) )
+		if (is_array($value) && isset($value['id']))
 		{
 			$value = $value['id'];	
 		}
 		
 		// object?
-		if( is_object($value) && isset($value->ID) )
+		if (is_object($value) && isset($value->ID))
 		{
 			$value = $value->ID;
 		}
@@ -371,16 +371,16 @@ class acf_field_file extends acf_field
 	*  @return	{int}	$post_id
 	*/
 	
-	function wp_prepare_attachment_for_js( $response, $attachment, $meta )
+	function wp_prepare_attachment_for_js($response, $attachment, $meta)
 	{
 		// default
 		$fs = '0 kb';
 		
 		
 		// supress PHP warnings caused by corrupt images
-		if( $i = @filesize( get_attached_file( $attachment->ID ) ) )
+		if ($i = @filesize(get_attached_file($attachment->ID)))
 		{
-			$fs = size_format( $i );
+			$fs = size_format($i);
 		}
 		
 		

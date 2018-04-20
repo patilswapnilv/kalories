@@ -12,20 +12,20 @@
 
 // wp_editor( $content, $editor_id, $settings = array() );
 
-if ( ! empty( $atts['label'] ) ) {
+if (!empty($atts['label'])) {
 
 	?><label for="<?php
 
-	echo esc_attr( $atts['id'] );
+	echo esc_attr($atts['id']);
 
 	?>"><?php
 
-		esc_html_e( $atts['label'], 'kalories' );
+		esc_html_e($atts['label'], 'kalories');
 
 	?>: </label><?php
 
 }
 
-wp_editor( html_entity_decode( $atts['value'] ), $atts['id'], $atts['settings'] );
+wp_editor(html_entity_decode($atts['value']), $atts['id'], $atts['settings']);
 
-?><span class="description"><?php esc_html_e( $atts['description'], 'kalories' ); ?></span>
+?><span class="description"><?php esc_html_e($atts['description'], 'kalories'); ?></span>

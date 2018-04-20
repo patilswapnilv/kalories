@@ -37,7 +37,7 @@ class Kalories_i18n {
 		load_plugin_textdomain(
 			'kalories',
 			false,
-			dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages/'
+			dirname(dirname(plugin_basename(__FILE__))) . '/languages/'
 		);
 
 	}

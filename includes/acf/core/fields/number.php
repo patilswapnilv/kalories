@@ -16,7 +16,7 @@ class acf_field_number extends acf_field
 	{
 		// vars
 		$this->name = 'number';
-		$this->label = __("Number",'acf');
+		$this->label = __("Number", 'acf');
 		$this->defaults = array(
 			'default_value'	=>	'',
 			'min'			=>	'',
@@ -45,21 +45,21 @@ class acf_field_number extends acf_field
 	*  @date	23/01/13
 	*/
 	
-	function create_field( $field )
+	function create_field($field)
 	{
 		// vars
-		$o = array( 'id', 'class', 'min', 'max', 'step', 'name', 'value', 'placeholder' );
+		$o = array('id', 'class', 'min', 'max', 'step', 'name', 'value', 'placeholder');
 		$e = '';
 		
 		
 		// step
-		if( !$field['step'] )
+		if (!$field['step'])
 		{
 			$field['step'] = 'any';
 		}
 		
 		// prepend
-		if( $field['prepend'] !== "" )
+		if ($field['prepend'] !== "")
 		{
 			$field['class'] .= ' acf-is-prepended';
 			$e .= '<div class="acf-input-prepend">' . $field['prepend'] . '</div>';
@@ -67,7 +67,7 @@ class acf_field_number extends acf_field
 		
 		
 		// append
-		if( $field['append'] !== "" )
+		if ($field['append'] !== "")
 		{
 			$field['class'] .= ' acf-is-appended';
 			$e .= '<div class="acf-input-append">' . $field['append'] . '</div>';
@@ -77,9 +77,9 @@ class acf_field_number extends acf_field
 		$e .= '<div class="acf-input-wrap">';
 		$e .= '<input type="number"';
 		
-		foreach( $o as $k )
+		foreach ($o as $k)
 		{
-			$e .= ' ' . $k . '="' . esc_attr( $field[ $k ] ) . '"';	
+			$e .= ' ' . $k . '="' . esc_attr($field[$k]) . '"';	
 		}
 		
 		$e .= ' />';
@@ -105,7 +105,7 @@ class acf_field_number extends acf_field
 	*  @param	$field	- an array holding all the field's data
 	*/
 	
-	function create_options( $field )
+	function create_options($field)
 	{
 		// vars
 		$key = $field['name'];
@@ -113,15 +113,15 @@ class acf_field_number extends acf_field
 		?>
 <tr class="field_option field_option_<?php echo $this->name; ?>">
 	<td class="label">
-		<label><?php _e("Default Value",'acf'); ?></label>
-		<p><?php _e("Appears when creating a new post",'acf') ?></p>
+		<label><?php _e("Default Value", 'acf'); ?></label>
+		<p><?php _e("Appears when creating a new post", 'acf') ?></p>
 	</td>
 	<td>
 		<?php
 		
 		do_action('acf/create_field', array(
 			'type'	=>	'number',
-			'name'	=>	'fields['.$key.'][default_value]',
+			'name'	=>	'fields[' . $key . '][default_value]',
 			'value'	=>	$field['default_value'],
 		));
 
@@ -130,14 +130,14 @@ class acf_field_number extends acf_field
 </tr>
 <tr class="field_option field_option_<?php echo $this->name; ?>">
 	<td class="label">
-		<label><?php _e("Placeholder Text",'acf'); ?></label>
-		<p><?php _e("Appears within the input",'acf') ?></p>
+		<label><?php _e("Placeholder Text", 'acf'); ?></label>
+		<p><?php _e("Appears within the input", 'acf') ?></p>
 	</td>
 	<td>
 		<?php 
 		do_action('acf/create_field', array(
 			'type'	=>	'text',
-			'name'	=>	'fields[' .$key.'][placeholder]',
+			'name'	=>	'fields[' . $key . '][placeholder]',
 			'value'	=>	$field['placeholder'],
 		));
 		?>
@@ -145,14 +145,14 @@ class acf_field_number extends acf_field
 </tr>
 <tr class="field_option field_option_<?php echo $this->name; ?>">
 	<td class="label">
-		<label><?php _e("Prepend",'acf'); ?></label>
-		<p><?php _e("Appears before the input",'acf') ?></p>
+		<label><?php _e("Prepend", 'acf'); ?></label>
+		<p><?php _e("Appears before the input", 'acf') ?></p>
 	</td>
 	<td>
 		<?php 
 		do_action('acf/create_field', array(
 			'type'	=>	'text',
-			'name'	=>	'fields[' .$key.'][prepend]',
+			'name'	=>	'fields[' . $key . '][prepend]',
 			'value'	=>	$field['prepend'],
 		));
 		?>
@@ -160,14 +160,14 @@ class acf_field_number extends acf_field
 </tr>
 <tr class="field_option field_option_<?php echo $this->name; ?>">
 	<td class="label">
-		<label><?php _e("Append",'acf'); ?></label>
-		<p><?php _e("Appears after the input",'acf') ?></p>
+		<label><?php _e("Append", 'acf'); ?></label>
+		<p><?php _e("Appears after the input", 'acf') ?></p>
 	</td>
 	<td>
 		<?php 
 		do_action('acf/create_field', array(
 			'type'	=>	'text',
-			'name'	=>	'fields[' .$key.'][append]',
+			'name'	=>	'fields[' . $key . '][append]',
 			'value'	=>	$field['append'],
 		));
 		?>
@@ -175,14 +175,14 @@ class acf_field_number extends acf_field
 </tr>
 <tr class="field_option field_option_<?php echo $this->name; ?>">
 	<td class="label">
-		<label><?php _e("Minimum Value",'acf'); ?></label>
+		<label><?php _e("Minimum Value", 'acf'); ?></label>
 	</td>
 	<td>
 		<?php
 		
 		do_action('acf/create_field', array(
 			'type'	=>	'number',
-			'name'	=>	'fields['.$key.'][min]',
+			'name'	=>	'fields[' . $key . '][min]',
 			'value'	=>	$field['min'],
 		));
 
@@ -191,14 +191,14 @@ class acf_field_number extends acf_field
 </tr>
 <tr class="field_option field_option_<?php echo $this->name; ?>">
 	<td class="label">
-		<label><?php _e("Maximum Value",'acf'); ?></label>
+		<label><?php _e("Maximum Value", 'acf'); ?></label>
 	</td>
 	<td>
 		<?php
 		
 		do_action('acf/create_field', array(
 			'type'	=>	'number',
-			'name'	=>	'fields['.$key.'][max]',
+			'name'	=>	'fields[' . $key . '][max]',
 			'value'	=>	$field['max'],
 		));
 
@@ -207,14 +207,14 @@ class acf_field_number extends acf_field
 </tr>
 <tr class="field_option field_option_<?php echo $this->name; ?>">
 	<td class="label">
-		<label><?php _e("Step Size",'acf'); ?></label>
+		<label><?php _e("Step Size", 'acf'); ?></label>
 	</td>
 	<td>
 		<?php
 		
 		do_action('acf/create_field', array(
 			'type'	=>	'number',
-			'name'	=>	'fields['.$key.'][step]',
+			'name'	=>	'fields[' . $key . '][step]',
 			'value'	=>	$field['step'],
 		));
 
@@ -241,10 +241,10 @@ class acf_field_number extends acf_field
 	*  @return	$value - the modified value
 	*/
 	
-	function update_value( $value, $post_id, $field )
+	function update_value($value, $post_id, $field)
 	{
 		// no formatting needed for empty value
-		if( empty($value) ) {
+		if (empty($value)) {
 			
 			return $value;
 			
@@ -256,7 +256,7 @@ class acf_field_number extends acf_field
 		
 		
 		// convert to float. This removes any chars
-		$value = floatval( $value );
+		$value = floatval($value);
 		
 		
 		// convert back to string. This alows decimals to save

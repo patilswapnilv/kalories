@@ -1,8 +1,8 @@
 <?php
 
-if( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+if (!defined('ABSPATH')) exit; // Exit if accessed directly
 
-if( !class_exists('acf_early_access') ):
+if (!class_exists('acf_early_access')):
 
 class acf_early_access {
 	
@@ -19,22 +19,22 @@ class acf_early_access {
 	
 	
 	/**
-	*  __construct
-	*
-	*  This function will setup the class functionality
-	*
-	*  @type	function
-	*  @date	12/9/17
-	*  @since	1.0.0
-	*
-	*  @param	n/a
-	*  @return	n/a
-	*/
+	 *  __construct
+	 *
+	 *  This function will setup the class functionality
+	 *
+	 *  @type	function
+	 *  @date	12/9/17
+	 *  @since	1.0.0
+	 *
+	 *  @param	n/a
+	 *  @return	n/a
+	 */
 	
 	function __construct() {
 		
 		// bail early if no access
-		if( !ACF_EARLY_ACCESS ) return;
+		if (!ACF_EARLY_ACCESS) return;
 		
 		
 		// vars
@@ -43,15 +43,15 @@ class acf_early_access {
 		
 		
 		// modify plugins transient
-		add_filter( 'pre_set_site_transient_update_plugins',	array($this, 'modify_plugins_transient'), 10, 1 );
-		add_filter( 'site_transient_update_plugins', 			array($this, 'check_plugins_transient'), 10, 1 );
+		add_filter('pre_set_site_transient_update_plugins', array($this, 'modify_plugins_transient'), 10, 1);
+		add_filter('site_transient_update_plugins', array($this, 'check_plugins_transient'), 10, 1);
 		
 		
 		// admin
-		if( is_admin() ) {
+		if (is_admin()) {
 			
 			// modify plugin update message
-			add_action('in_plugin_update_message-' . $this->basename, array($this, 'modify_plugin_update_message'), 10, 2 );
+			add_action('in_plugin_update_message-' . $this->basename, array($this, 'modify_plugin_update_message'), 10, 2);
 			
 		}
 		
@@ -59,20 +59,20 @@ class acf_early_access {
 	
 	
 	/**
-	*  request
-	*
-	*  This function will make a request to an external server
-	*
-	*  @type	function
-	*  @date	8/4/17
-	*  @since	1.0.0
-	*
-	*  @param	$url (string)
-	*  @param	$body (array)
-	*  @return	(mixed)
-	*/
+	 *  request
+	 *
+	 *  This function will make a request to an external server
+	 *
+	 *  @type	function
+	 *  @date	8/4/17
+	 *  @since	1.0.0
+	 *
+	 *  @param	$url (string)
+	 *  @param	$body (array)
+	 *  @return	(mixed)
+	 */
 	
-	function request( $url = '', $body = null ) {
+	function request($url = '', $body = null) {
 		
 		// post
 		$raw_response = wp_remote_post($url, array(
@@ -82,14 +82,14 @@ class acf_early_access {
 		
 		
 		// wp error
-		if( is_wp_error($raw_response) ) {
+		if (is_wp_error($raw_response)) {
 			
 			return $raw_response;
 		
 		// http error
-		} elseif( wp_remote_retrieve_response_code($raw_response) != 200 ) {
+		} elseif (wp_remote_retrieve_response_code($raw_response) != 200) {
 			
-			return new WP_Error( 'server_error', wp_remote_retrieve_response_message($raw_response) );
+			return new WP_Error('server_error', wp_remote_retrieve_response_message($raw_response));
 			
 		}
 		
@@ -99,13 +99,13 @@ class acf_early_access {
 		
 		
 		// attempt object
-		$obj = @unserialize( $raw_body );
-		if( $obj ) return $obj;
+		$obj = @unserialize($raw_body);
+		if ($obj) return $obj;
 		
 		
 		// attempt json
-		$json = json_decode( $raw_body, true );
-		if( $json ) return $json;
+		$json = json_decode($raw_body, true);
+		if ($json) return $json;
 		
 		
 		// return
@@ -115,17 +115,17 @@ class acf_early_access {
 	
 	
 	/**
-	*  get_plugin_info
-	*
-	*  This function will get plugin info and save as transient
-	*
-	*  @type	function
-	*  @date	9/4/17
-	*  @since	1.0.0
-	*
-	*  @param	n/a
-	*  @return	(array)
-	*/
+	 *  get_plugin_info
+	 *
+	 *  This function will get plugin info and save as transient
+	 *
+	 *  @type	function
+	 *  @date	9/4/17
+	 *  @since	1.0.0
+	 *
+	 *  @param	n/a
+	 *  @return	(array)
+	 */
 	
 	function get_plugin_info() {
 		
@@ -134,7 +134,7 @@ class acf_early_access {
 		
 		
 		// delete transient (force-check is used to refresh)
-		if( !empty($_GET['force-check']) ) {
+		if (!empty($_GET['force-check'])) {
 		
 			delete_transient($transient_name);
 			
@@ -143,7 +143,7 @@ class acf_early_access {
 	
 		// try transient
 		$transient = get_transient($transient_name);
-		if( $transient !== false ) return $transient;
+		if ($transient !== false) return $transient;
 		
 		
 		// connect
@@ -151,12 +151,12 @@ class acf_early_access {
 		
 		
 		// ensure response is expected object
-		if( !is_wp_error($response) ) {
+		if (!is_wp_error($response)) {
 			
 			// store minimal data
 			$info = array(
 				'version'	=> $response->version,
-				'versions'	=> array_keys( $response->versions ),
+				'versions'	=> array_keys($response->versions),
 				'tested'	=> $response->tested
 			);
 			
@@ -182,21 +182,21 @@ class acf_early_access {
 	
 	
 	/**
-	*  check_plugins_transient
-	*
-	*  This function will check the 'update_plugins' transient and maybe modify it's value
-	*
-	*  @date	19/9/17
-	*  @since	5.6.3
-	*
-	*  @param	n/a
-	*  @return	n/a
-	*/
+	 *  check_plugins_transient
+	 *
+	 *  This function will check the 'update_plugins' transient and maybe modify it's value
+	 *
+	 *  @date	19/9/17
+	 *  @since	5.6.3
+	 *
+	 *  @param	n/a
+	 *  @return	n/a
+	 */
 	
-	function check_plugins_transient( $transient ) {
+	function check_plugins_transient($transient) {
 		
 		// bail ealry if has been checked
-		if( $this->checked ) return $transient;
+		if ($this->checked) return $transient;
 		$this->checked = true;
 		
 		
@@ -205,20 +205,20 @@ class acf_early_access {
 		
 		
 		// bail early if empty
-		if( !$transient || empty($transient->checked) ) return $transient;
+		if (!$transient || empty($transient->checked)) return $transient;
 		
 		
 		// bail early if acf was not checked
 		// - rules out possible included file in theme / plugin
-		if( !isset($transient->checked[ $basename ]) ) return $transient;
+		if (!isset($transient->checked[$basename])) return $transient;
 		
 		
 		// flush cache if no 'acf' update exists
 		// flush cache if 'acf' update does not contain early access info
 		// flush cache if 'acf' update contains different early access info
-		if( empty($transient->response[ $basename ]) ||
-			empty($transient->response[ $basename ]->early_access) ||
-			$transient->response[ $basename ]->early_access !== $this->access ) {
+		if (empty($transient->response[$basename]) ||
+			empty($transient->response[$basename]->early_access) ||
+			$transient->response[$basename]->early_access !== $this->access) {
 			wp_clean_plugins_cache();		
 		}
 		
@@ -231,60 +231,60 @@ class acf_early_access {
 	
 	
 	/**
-	*  modify_plugins_transient
-	*
-	*  This function will modify the 'update_plugins' transient with custom data
-	*
-	*  @type	function
-	*  @date	11/9/17
-	*  @since	1.0.0
-	*
-	*  @param	$transient (object)
-	*  @return	$transient
-	*/
+	 *  modify_plugins_transient
+	 *
+	 *  This function will modify the 'update_plugins' transient with custom data
+	 *
+	 *  @type	function
+	 *  @date	11/9/17
+	 *  @since	1.0.0
+	 *
+	 *  @param	$transient (object)
+	 *  @return	$transient
+	 */
 	
-	function modify_plugins_transient( $transient ) {
+	function modify_plugins_transient($transient) {
 		
 		// vars
 		$basename = $this->basename;
 		
 		
 		// bail early if empty
-		if( !$transient || empty($transient->checked) ) return $transient;
+		if (!$transient || empty($transient->checked)) return $transient;
 		
 		
 		// bail early if acf was not checked
 		// - rules out possible included file in theme / plugin
-		if( !isset($transient->checked[ $basename ]) ) return $transient;
+		if (!isset($transient->checked[$basename])) return $transient;
 		
 		
 		// bail early if already modified
-		if( !empty($transient->response[ $basename ]->early_access) ) return $transient;
+		if (!empty($transient->response[$basename]->early_access)) return $transient;
 		
 		
 		// vars
 		$info = $this->get_plugin_info();
-		$old_version = $transient->checked[ $basename ];
+		$old_version = $transient->checked[$basename];
 		$new_version = '';
 		
 		
 		// attempt to find latest tag
-		foreach( $info['versions'] as $version ) {
+		foreach ($info['versions'] as $version) {
 			
 			// ignore trunk
-			if( $version == 'trunk' ) continue;
+			if ($version == 'trunk') continue;
 			
 			
 			// restirct versions that don't start with '5'
-			if( strpos($version, $this->access) !== 0 ) continue;
+			if (strpos($version, $this->access) !== 0) continue;
 			
 			
 			// ignore if $version is older than $old_version
-			if( version_compare($version, $old_version, '<=') ) continue;
+			if (version_compare($version, $old_version, '<=')) continue;
 			
 			
 			// ignore if $version is older than $new_version
-			if( version_compare($version, $new_version, '<=') ) continue;
+			if (version_compare($version, $new_version, '<=')) continue;
 			
 			
 			// this tag is a newer version!
@@ -294,7 +294,7 @@ class acf_early_access {
 				
 		
 		// bail ealry if no $new_version
-		if( !$new_version ) return $transient;
+		if (!$new_version) return $transient;
 		
 		
 		// response
@@ -304,17 +304,17 @@ class acf_early_access {
 		$response->plugin = $basename;
 		$response->new_version = $new_version;
 		$response->url = 'https://wordpress.org/plugins/advanced-custom-fields/';
-		$response->package = 'https://downloads.wordpress.org/plugin/advanced-custom-fields.'.$new_version.'.zip';
+		$response->package = 'https://downloads.wordpress.org/plugin/advanced-custom-fields.' . $new_version . '.zip';
 		$response->tested = $info['tested'];
 		$response->early_access = $this->access;
 		
 		
 		// append
-		$transient->response[ $basename ] = $response;
+		$transient->response[$basename] = $response;
 		
 		
 		// return 
-        return $transient;
+		return $transient;
         
 	}
 	
@@ -334,7 +334,7 @@ class acf_early_access {
 	*  @return	$message
 	*/
 	
-	function modify_plugin_update_message( $plugin_data, $response ) {
+	function modify_plugin_update_message($plugin_data, $response) {
 		
 		// display message
 		echo ' <em>' . __('(Early access enabled)', 'acf') . '</em>';

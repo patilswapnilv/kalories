@@ -53,9 +53,9 @@ class acf_field_functions
 	function load_value($value, $post_id, $field)
 	{
 		$found = false;
-		$cache = wp_cache_get( 'load_value/post_id=' . $post_id . '/name=' . $field['name'], 'acf', false, $found );
+		$cache = wp_cache_get('load_value/post_id=' . $post_id . '/name=' . $field['name'], 'acf', false, $found);
 		
-		if( $found )
+		if ($found)
 		{
 			return $cache;
 		}
@@ -66,35 +66,34 @@ class acf_field_functions
 		
 		
 		// if $post_id is a string, then it is used in the everything fields and can be found in the options table
-		if( is_numeric($post_id) )
+		if (is_numeric($post_id))
 		{
-			$v = get_post_meta( $post_id, $field['name'], false );
+			$v = get_post_meta($post_id, $field['name'], false);
 			
 			// value is an array
-			if( isset($v[0]) )
+			if (isset($v[0]))
 			{
 			 	$value = $v[0];
 		 	}
 
 		}
-		elseif( strpos($post_id, 'user_') !== false )
+		elseif (strpos($post_id, 'user_') !== false)
 		{
 			$user_id = str_replace('user_', '', $post_id);
 			
-			$v = get_user_meta( $user_id, $field['name'], false );
+			$v = get_user_meta($user_id, $field['name'], false);
 			
 			// value is an array
-			if( isset($v[0]) )
+			if (isset($v[0]))
 			{
 			 	$value = $v[0];
 		 	}
 		 	
-		}
-		else
+		} else
 		{
-			$v = get_option( $post_id . '_' . $field['name'], false );
+			$v = get_option($post_id . '_' . $field['name'], false);
 			
-			if( !is_null($value) )
+			if (!is_null($value))
 			{
 				$value = $v;
 		 	}
@@ -102,9 +101,9 @@ class acf_field_functions
 		
 		
 		// no value?
-		if( $value === false )
+		if ($value === false)
 		{
-			if( isset($field['default_value']) && $field['default_value'] !== "" )
+			if (isset($field['default_value']) && $field['default_value'] !== "")
 			{
 				$value = $field['default_value'];
 			}
@@ -116,15 +115,15 @@ class acf_field_functions
 		
 		
 		// apply filters
-		foreach( array('type', 'name', 'key') as $key )
+		foreach (array('type', 'name', 'key') as $key)
 		{
 			// run filters
-			$value = apply_filters('acf/load_value/' . $key . '=' . $field[ $key ], $value, $post_id, $field); // new filter
+			$value = apply_filters('acf/load_value/' . $key . '=' . $field[$key], $value, $post_id, $field); // new filter
 		}
 		
 		
 		//update cache
-		wp_cache_set( 'load_value/post_id=' . $post_id . '/name=' . $field['name'], $value, 'acf' );
+		wp_cache_set('load_value/post_id=' . $post_id . '/name=' . $field['name'], $value, 'acf');
 
 		
 		return $value;
@@ -139,7 +138,7 @@ class acf_field_functions
 	*  @created: 26/01/13
 	*/
 	
-	function format_value( $value, $post_id, $field )
+	function format_value($value, $post_id, $field)
 	{
 		$value = apply_filters('acf/format_value/type=' . $field['type'], $value, $post_id, $field);
 		
@@ -155,7 +154,7 @@ class acf_field_functions
 	*  @created: 26/01/13
 	*/
 	
-	function format_value_for_api( $value, $post_id, $field )
+	function format_value_for_api($value, $post_id, $field)
 	{
 		$value = apply_filters('acf/format_value_for_api/type=' . $field['type'], $value, $post_id, $field);
 		
@@ -178,7 +177,7 @@ class acf_field_functions
 	*  @return	N/A
 	*/
 	
-	function update_value( $value, $post_id, $field )
+	function update_value($value, $post_id, $field)
 	{
 	
 		// strip slashes
@@ -190,21 +189,21 @@ class acf_field_functions
 		
 		
 		// apply filters		
-		foreach( array('key', 'name', 'type') as $key )
+		foreach (array('key', 'name', 'type') as $key)
 		{
 			// run filters
-			$value = apply_filters('acf/update_value/' . $key . '=' . $field[ $key ], $value, $post_id, $field); // new filter
+			$value = apply_filters('acf/update_value/' . $key . '=' . $field[$key], $value, $post_id, $field); // new filter
 		}
 		
 		
 		// if $post_id is a string, then it is used in the everything fields and can be found in the options table
-		if( is_numeric($post_id) )
+		if (is_numeric($post_id))
 		{
 			// allow ACF to save to revision!
-			update_metadata('post', $post_id, $field['name'], $value );
+			update_metadata('post', $post_id, $field['name'], $value);
 			update_metadata('post', $post_id, '_' . $field['name'], $field['key']);
 		}
-		elseif( strpos($post_id, 'user_') !== false )
+		elseif (strpos($post_id, 'user_') !== false)
 		{
 			$user_id = str_replace('user_', '', $post_id);
 			update_metadata('user', $user_id, $field['name'], $value);
@@ -217,13 +216,13 @@ class acf_field_functions
 			// update_option -> http://core.trac.wordpress.org/browser/tags/3.5.1/wp-includes/option.php#L0: line 215 (does not use stripslashes_deep)
 			$value = stripslashes_deep($value);
 			
-			$this->update_option( $post_id . '_' . $field['name'], $value );
-			$this->update_option( '_' . $post_id . '_' . $field['name'], $field['key'] );
+			$this->update_option($post_id . '_' . $field['name'], $value);
+			$this->update_option('_' . $post_id . '_' . $field['name'], $field['key']);
 		}
 		
 		
 		// update the cache
-		wp_cache_set( 'load_value/post_id=' . $post_id . '/name=' . $field['name'], $value, 'acf' );
+		wp_cache_set('load_value/post_id=' . $post_id . '/name=' . $field['name'], $value, 'acf');
 		
 	}
 	
@@ -251,7 +250,7 @@ class acf_field_functions
 		
 		if( get_option($option) !== false )
 		{
-		    $return = update_option( $option, $value );
+			$return = update_option( $option, $value );
 		}
 		else
 		{
@@ -273,27 +272,27 @@ class acf_field_functions
 	*  @created: 23/01/13
 	*/
 	
-	function delete_value( $post_id, $key )
+	function delete_value($post_id, $key)
 	{
 		// if $post_id is a string, then it is used in the everything fields and can be found in the options table
-		if( is_numeric($post_id) )
+		if (is_numeric($post_id))
 		{
-			delete_post_meta( $post_id, $key );
-			delete_post_meta( $post_id, '_' . $key );
+			delete_post_meta($post_id, $key);
+			delete_post_meta($post_id, '_' . $key);
 		}
-		elseif( strpos($post_id, 'user_') !== false )
+		elseif (strpos($post_id, 'user_') !== false)
 		{
 			$post_id = str_replace('user_', '', $post_id);
-			delete_user_meta( $post_id, $key );
-			delete_user_meta( $post_id, '_' . $key );
+			delete_user_meta($post_id, $key);
+			delete_user_meta($post_id, '_' . $key);
 		}
 		else
 		{
-			delete_option( $post_id . '_' . $key );
-			delete_option( '_' . $post_id . '_' . $key );
+			delete_option($post_id . '_' . $key);
+			delete_option('_' . $post_id . '_' . $key);
 		}
 		
-		wp_cache_delete( 'load_value/post_id=' . $post_id . '/name=' . $key, 'acf' );
+		wp_cache_delete('load_value/post_id=' . $post_id . '/name=' . $key, 'acf');
 	}
 	
 	
@@ -305,17 +304,17 @@ class acf_field_functions
 	*  @created: 14/10/12
 	*/
 	
-	function load_field( $field, $field_key, $post_id = false )
+	function load_field($field, $field_key, $post_id = false)
 	{
 		// load cache
-		if( !$field )
+		if (!$field)
 		{
-			$field = wp_cache_get( 'load_field/key=' . $field_key, 'acf' );
+			$field = wp_cache_get('load_field/key=' . $field_key, 'acf');
 		}
 		
 		
 		// load from DB
-		if( !$field )
+		if (!$field)
 		{
 			// vars
 			global $wpdb;
@@ -324,17 +323,17 @@ class acf_field_functions
 			// get field from postmeta
 			$sql = $wpdb->prepare("SELECT post_id, meta_value FROM $wpdb->postmeta WHERE meta_key = %s", $field_key);
 			
-			if( $post_id )
+			if ($post_id)
 			{
 				$sql .= $wpdb->prepare("AND post_id = %d", $post_id);
 			}
 	
-			$rows = $wpdb->get_results( $sql, ARRAY_A );
+			$rows = $wpdb->get_results($sql, ARRAY_A);
 			
 			
 			
 			// nothing found?
-			if( !empty($rows) )
+			if (!empty($rows))
 			{
 				$row = $rows[0];
 				
@@ -347,13 +346,13 @@ class acf_field_functions
 				*  In this case, the field group ID is never known and we can check for the correct translated field group
 				*/
 				
-				if( defined('ICL_LANGUAGE_CODE') && !$post_id )
+				if (defined('ICL_LANGUAGE_CODE') && !$post_id)
 				{
 					$wpml_post_id = icl_object_id($row['post_id'], 'acf', true, ICL_LANGUAGE_CODE);
 					
-					foreach( $rows as $r )
+					foreach ($rows as $r)
 					{
-						if( $r['post_id'] == $wpml_post_id )
+						if ($r['post_id'] == $wpml_post_id)
 						{
 							// this row is a field from the translated field group
 							$row = $r;
@@ -363,11 +362,11 @@ class acf_field_functions
 				
 				
 				// return field if it is not in a trashed field group
-				if( get_post_status( $row['post_id'] ) != "trash" )
+				if (get_post_status($row['post_id']) != "trash")
 				{
 					$field = $row['meta_value'];
-					$field = maybe_unserialize( $field );
-					$field = maybe_unserialize( $field ); // run again for WPML
+					$field = maybe_unserialize($field);
+					$field = maybe_unserialize($field); // run again for WPML
 					
 					
 					// add field_group ID
@@ -383,15 +382,15 @@ class acf_field_functions
 		
 		
 		// apply filters
-		foreach( array('type', 'name', 'key') as $key )
+		foreach (array('type', 'name', 'key') as $key)
 		{
 			// run filters
-			$field = apply_filters('acf/load_field/' . $key . '=' . $field[ $key ], $field); // new filter
+			$field = apply_filters('acf/load_field/' . $key . '=' . $field[$key], $field); // new filter
 		}
 		
 	
 		// set cache
-		wp_cache_set( 'load_field/key=' . $field_key, $field, 'acf' );
+		wp_cache_set('load_field/key=' . $field_key, $field, 'acf');
 		
 		return $field;
 	}
@@ -405,10 +404,10 @@ class acf_field_functions
 	*  @created: 14/10/12
 	*/
 	
-	function load_field_defaults( $field )
+	function load_field_defaults($field)
 	{
 		// validate $field
-		if( !is_array($field) )
+		if (!is_array($field))
 		{
 			$field = array();
 		}
@@ -436,22 +435,22 @@ class acf_field_functions
 		
 		
 		// Parse Values
-		$field = apply_filters( 'acf/parse_types', $field );
+		$field = apply_filters('acf/parse_types', $field);
 		
 		
 		// field specific defaults
-		$field = apply_filters('acf/load_field_defaults/type=' . $field['type'] , $field);
+		$field = apply_filters('acf/load_field_defaults/type=' . $field['type'], $field);
 				
 		
 		// class
-		if( !$field['class'] )
+		if (!$field['class'])
 		{
 			$field['class'] = $field['type'];
 		}
 		
 		
 		// id
-		if( !$field['id'] )
+		if (!$field['id'])
 		{
 			$id = $field['name'];
 			$id = str_replace('][', '_', $id);
@@ -464,14 +463,14 @@ class acf_field_functions
 		
 		
 		// _name
-		if( !$field['_name'] )
+		if (!$field['_name'])
 		{
 			$field['_name'] = $field['name'];
 		}
 		
 		
 		// clean up conditional logic keys
-		if( !empty($field['conditional_logic']['rules']) )
+		if (!empty($field['conditional_logic']['rules']))
 		{
 			$field['conditional_logic']['rules'] = array_values($field['conditional_logic']['rules']);
 		}
@@ -490,7 +489,7 @@ class acf_field_functions
 	*  @created: 24/01/13
 	*/
 	
-	function update_field( $field, $post_id )
+	function update_field($field, $post_id)
 	{
 		// sanitize field name
 		// - http://support.advancedcustomfields.com/discussion/5262/sanitize_title-on-field-name
@@ -499,15 +498,15 @@ class acf_field_functions
 		
 		
 		// filters
-		$field = apply_filters('acf/update_field/type=' . $field['type'], $field, $post_id ); // new filter
+		$field = apply_filters('acf/update_field/type=' . $field['type'], $field, $post_id); // new filter
 		
 		
 		// clear cache
-		wp_cache_delete( 'load_field/key=' . $field['key'], 'acf' );
+		wp_cache_delete('load_field/key=' . $field['key'], 'acf');
 	
 		
 		// save
-		update_post_meta( $post_id, $field['key'], $field );
+		update_post_meta($post_id, $field['key'], $field);
 	}
 	
 	
@@ -519,10 +518,10 @@ class acf_field_functions
 	*  @created: 24/01/13
 	*/
 	
-	function delete_field( $post_id, $field_key )
+	function delete_field($post_id, $field_key)
 	{
 		// clear cache
-		wp_cache_delete( 'load_field/key=' . $field_key, 'acf' );
+		wp_cache_delete('load_field/key=' . $field_key, 'acf');
 		
 		
 		// delete
@@ -538,7 +537,7 @@ class acf_field_functions
 	*  @created: 23/01/13
 	*/
 	
-	function create_field( $field )
+	function create_field($field)
 	{
 		// load defaults
 		// if field was loaded from db, these default will already be appield
@@ -551,7 +550,7 @@ class acf_field_functions
 		
 		
 		// conditional logic
-		if( $field['conditional_logic']['status'] )
+		if ($field['conditional_logic']['status'])
 		{
 			$field['conditional_logic']['field'] = $field['key'];
 			
