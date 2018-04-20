@@ -1,5 +1,7 @@
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/patilswapnilv/kalories/badges/quality-score.png?b=dev)](https://scrutinizer-ci.com/g/patilswapnilv/kalories/?branch=dev)
 [![Code Coverage](https://scrutinizer-ci.com/g/patilswapnilv/kalories/badges/coverage.png?b=dev)](https://scrutinizer-ci.com/g/patilswapnilv/kalories/?branch=dev)
+[![Build Status](https://scrutinizer-ci.com/g/patilswapnilv/kalories/badges/build.png?b=dev)](https://scrutinizer-ci.com/g/patilswapnilv/kalories/build-status/dev)
+[![Code Intelligence Status](https://scrutinizer-ci.com/g/patilswapnilv/kalories/badges/code-intelligence.svg?b=dev)](https://scrutinizer-ci.com/code-intelligence)
 
 === Kalories ===
 Contributors: patilswapnilv
