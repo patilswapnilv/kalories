@@ -34,6 +34,7 @@ class Kalories_Activator {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-kalories-admin.php';
 
 		Kalories_Admin::new_cpt_meal();
+		Kalories_Admin::new_cpt_kalories_cal();
 		//Kalories_Admin::new_taxonomy_type();
 
 		flush_rewrite_rules();
