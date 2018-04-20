@@ -1,0 +1,17 @@
+1. Template for the kalories post type
+
+[meal], [no. of calories] [+]
+[meal], [no. of calories] [+]
+[meal], [no. of calories] [+]
+--------[Total calories]- [=]
+
+2. Setting to hold the total calories default/ideal value on dashboard
+  - kalories
+    - admin
+      - partials
+        - kalories-admin-display
+  Change it from 'edit.php?post_type=meal' to 'edit.php?post_type=kalories'
+
+3. Add meal, from front-end with calories value
+
+4. 

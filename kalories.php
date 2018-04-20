@@ -15,7 +15,7 @@
  * @wordpress-plugin
  * Plugin Name:       Kalories
  * Plugin URI:        https://github.com/patilswapnilv/kalories
- * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
+ * Description:       Calories tracker for WordPress.
  * Version:           1.0.0
  * Author:            Swapnil Patil
  * Author URI:        https://swapnil.blog/
