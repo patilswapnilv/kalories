@@ -49,22 +49,22 @@ class acf_controller_input
 		
 				
 		// vars
-		$toolbars = apply_filters( 'acf/fields/wysiwyg/toolbars', array() );
+		$toolbars = apply_filters('acf/fields/wysiwyg/toolbars', array());
 		$post_id = 0;
-		if( $post )
+		if ($post)
 		{
-			$post_id = intval( $post->ID );
+			$post_id = intval($post->ID);
 		}
 		
 		
 		// l10n
-		$l10n = apply_filters( 'acf/input/admin_l10n', array(
+		$l10n = apply_filters('acf/input/admin_l10n', array(
 			'core' => array(
-				'expand_details' => __("Expand Details",'acf'),
-				'collapse_details' => __("Collapse Details",'acf')
+				'expand_details' => __("Expand Details", 'acf'),
+				'collapse_details' => __("Collapse Details", 'acf')
 			),
 			'validation' => array(
-				'error' => __("Validation Failed. One or more fields below are required.",'acf')
+				'error' => __("Validation Failed. One or more fields below are required.", 'acf')
 			)
 		));
 		
@@ -72,9 +72,9 @@ class acf_controller_input
 		// options
 		$o = array(
 			'post_id'		=>	$post_id,
-			'nonce'			=>	wp_create_nonce( 'acf_nonce' ),
+			'nonce'			=>	wp_create_nonce('acf_nonce'),
 			'admin_url'		=>	admin_url(),
-			'ajaxurl'		=>	admin_url( 'admin-ajax.php' ),
+			'ajaxurl'		=>	admin_url('admin-ajax.php'),
 			'wp_version'	=>	$wp_version
 		);
 		
@@ -82,16 +82,16 @@ class acf_controller_input
 		// toolbars
 		$t = array();
 		
-		if( is_array($toolbars) ){ foreach( $toolbars as $label => $rows ){
+		if (is_array($toolbars)) { foreach ($toolbars as $label => $rows) {
 			
-			$label = sanitize_title( $label );
+			$label = sanitize_title($label);
 			$label = str_replace('-', '_', $label);
 			
-			$t[ $label ] = array();
+			$t[$label] = array();
 			
-			if( is_array($rows) ){ foreach( $rows as $k => $v ){
+			if (is_array($rows)) { foreach ($rows as $k => $v) {
 				
-				$t[ $label ][ 'theme_advanced_buttons' . $k ] = implode(',', $v);
+				$t[$label]['theme_advanced_buttons' . $k] = implode(',', $v);
 				
 			}}
 		}}
@@ -103,16 +103,16 @@ class acf_controller_input
 
 	// vars
 	acf.post_id = <?php echo is_numeric($post_id) ? $post_id : '"' . $post_id . '"'; ?>;
-	acf.nonce = "<?php echo wp_create_nonce( 'acf_nonce' ); ?>";
+	acf.nonce = "<?php echo wp_create_nonce('acf_nonce'); ?>";
 	acf.admin_url = "<?php echo admin_url(); ?>";
-	acf.ajaxurl = "<?php echo admin_url( 'admin-ajax.php' ); ?>";
+	acf.ajaxurl = "<?php echo admin_url('admin-ajax.php'); ?>";
 	acf.wp_version = "<?php echo $wp_version; ?>";
 	
 	
 	// new vars
-	acf.o = <?php echo json_encode( $o ); ?>;
-	acf.l10n = <?php echo json_encode( $l10n ); ?>;
-	acf.fields.wysiwyg.toolbars = <?php echo json_encode( $t ); ?>;
+	acf.o = <?php echo json_encode($o); ?>;
+	acf.l10n = <?php echo json_encode($l10n); ?>;
+	acf.fields.wysiwyg.toolbars = <?php echo json_encode($t); ?>;
 
 })(jQuery);	
 </script>
@@ -147,7 +147,7 @@ class acf_controller_input
 
 		
 		// 3.5 media gallery
-		if( function_exists('wp_enqueue_media') && !did_action( 'wp_enqueue_media' ))
+		if (function_exists('wp_enqueue_media') && !did_action('wp_enqueue_media'))
 		{
 			wp_enqueue_media();
 		}

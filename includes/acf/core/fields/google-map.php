@@ -15,8 +15,8 @@ class acf_field_google_map extends acf_field
 	{
 		// vars
 		$this->name = 'google_map';
-		$this->label = __("Google Map",'acf');
-		$this->category = __("jQuery",'acf');
+		$this->label = __("Google Map", 'acf');
+		$this->category = __("jQuery", 'acf');
 		$this->defaults = array(
 			'height'		=> '',
 			'center_lat'	=> '',
@@ -30,8 +30,8 @@ class acf_field_google_map extends acf_field
 			'zoom'			=> '14'
 		);
 		$this->l10n = array(
-			'locating'			=>	__("Locating",'acf'),
-			'browser_support'	=>	__("Sorry, this browser does not support geolocation",'acf'),
+			'locating'			=>	__("Locating", 'acf'),
+			'browser_support'	=>	__("Sorry, this browser does not support geolocation", 'acf'),
 		);
 		
 		
@@ -52,14 +52,14 @@ class acf_field_google_map extends acf_field
 	*  @date	23/01/13
 	*/
 	
-	function create_field( $field )
+	function create_field($field)
 	{
 		// require the googlemaps JS ( this script is now lazy loaded via JS )
 		//wp_enqueue_script('acf-googlemaps');
 		
 		
 		// default value
-		if( !is_array($field['value']) )
+		if (!is_array($field['value']))
 		{
 			$field['value'] = array();
 		}
@@ -72,11 +72,11 @@ class acf_field_google_map extends acf_field
 		
 		
 		// default options
-		foreach( $this->default_values as $k => $v )
+		foreach ($this->default_values as $k => $v)
 		{
-			if( ! $field[ $k ] )
+			if (!$field[$k])
 			{
-				$field[ $k ] = $v;
+				$field[$k] = $v;
 			}	
 		}
 		
@@ -86,7 +86,7 @@ class acf_field_google_map extends acf_field
 			'class'		=>	'',
 		);
 		
-		if( $field['value']['address'] )
+		if ($field['value']['address'])
 		{
 			$o['class'] = 'active';
 		}
@@ -100,30 +100,30 @@ class acf_field_google_map extends acf_field
 			'data-zoom'	=> 'zoom'
 		);
 		
-		foreach( $keys as $k => $v )
+		foreach ($keys as $k => $v)
 		{
-			$atts .= ' ' . $k . '="' . esc_attr( $field[ $v ] ) . '"';	
+			$atts .= ' ' . $k . '="' . esc_attr($field[$v]) . '"';	
 		}
 		
 		?>
 		<div class="acf-google-map <?php echo $o['class']; ?>" <?php echo $atts; ?>>
 			
 			<div style="display:none;">
-				<?php foreach( $field['value'] as $k => $v ): ?>
-					<input type="hidden" class="input-<?php echo $k; ?>" name="<?php echo esc_attr($field['name']); ?>[<?php echo $k; ?>]" value="<?php echo esc_attr( $v ); ?>" />
+				<?php foreach ($field['value'] as $k => $v): ?>
+					<input type="hidden" class="input-<?php echo $k; ?>" name="<?php echo esc_attr($field['name']); ?>[<?php echo $k; ?>]" value="<?php echo esc_attr($v); ?>" />
 				<?php endforeach; ?>
 			</div>
 			
 			<div class="title">
 				
 				<div class="has-value">
-					<a href="#" class="acf-sprite-remove ir" title="<?php _e("Clear location",'acf'); ?>">Remove</a>
+					<a href="#" class="acf-sprite-remove ir" title="<?php _e("Clear location", 'acf'); ?>">Remove</a>
 					<h4><?php echo $field['value']['address']; ?></h4>
 				</div>
 				
 				<div class="no-value">
-					<a href="#" class="acf-sprite-locate ir" title="<?php _e("Find current location",'acf'); ?>">Locate</a>
-					<input type="text" placeholder="<?php _e("Search for address...",'acf'); ?>" class="search" />
+					<a href="#" class="acf-sprite-locate ir" title="<?php _e("Find current location", 'acf'); ?>">Locate</a>
+					<input type="text" placeholder="<?php _e("Search for address...", 'acf'); ?>" class="search" />
 				</div>
 				
 			</div>
@@ -151,7 +151,7 @@ class acf_field_google_map extends acf_field
 	*  @param	$field	- an array holding all the field's data
 	*/
 	
-	function create_options( $field )
+	function create_options($field)
 	{
 		// vars
 		$key = $field['name'];
@@ -159,8 +159,8 @@ class acf_field_google_map extends acf_field
 		?>
 <tr class="field_option field_option_<?php echo $this->name; ?>">
 	<td class="label">
-		<label><?php _e("Center",'acf'); ?></label>
-		<p class="description"><?php _e('Center the initial map','acf'); ?></p>
+		<label><?php _e("Center", 'acf'); ?></label>
+		<p class="description"><?php _e('Center the initial map', 'acf'); ?></p>
 	</td>
 	<td>
 		<ul class="hl clearfix">
@@ -169,7 +169,7 @@ class acf_field_google_map extends acf_field
 			
 				do_action('acf/create_field', array(
 					'type'			=> 'text',
-					'name'			=> 'fields['.$key.'][center_lat]',
+					'name'			=> 'fields[' . $key . '][center_lat]',
 					'value'			=> $field['center_lat'],
 					'prepend'		=> 'lat',
 					'placeholder'	=> $this->default_values['center_lat']
@@ -182,7 +182,7 @@ class acf_field_google_map extends acf_field
 			
 				do_action('acf/create_field', array(
 					'type'			=> 'text',
-					'name'			=> 'fields['.$key.'][center_lng]',
+					'name'			=> 'fields[' . $key . '][center_lng]',
 					'value'			=> $field['center_lng'],
 					'prepend'		=> 'lng',
 					'placeholder'	=> $this->default_values['center_lng']
@@ -196,15 +196,15 @@ class acf_field_google_map extends acf_field
 </tr>
 <tr class="field_option field_option_<?php echo $this->name; ?>">
 	<td class="label">
-		<label><?php _e("Zoom",'acf'); ?></label>
-		<p class="description"><?php _e('Set the initial zoom level','acf'); ?></p>
+		<label><?php _e("Zoom", 'acf'); ?></label>
+		<p class="description"><?php _e('Set the initial zoom level', 'acf'); ?></p>
 	</td>
 	<td>
 		<?php 
 		
 		do_action('acf/create_field', array(
 			'type'			=> 'number',
-			'name'			=> 'fields['.$key.'][zoom]',
+			'name'			=> 'fields[' . $key . '][zoom]',
 			'value'			=> $field['zoom'],
 			'placeholder'	=> $this->default_values['zoom']
 		));
@@ -214,15 +214,15 @@ class acf_field_google_map extends acf_field
 </tr>
 <tr class="field_option field_option_<?php echo $this->name; ?>">
 	<td class="label">
-		<label><?php _e("Height",'acf'); ?></label>
-		<p class="description"><?php _e('Customise the map height','acf'); ?></p>
+		<label><?php _e("Height", 'acf'); ?></label>
+		<p class="description"><?php _e('Customise the map height', 'acf'); ?></p>
 	</td>
 	<td>
 		<?php 
 		
 		do_action('acf/create_field', array(
 			'type'			=> 'number',
-			'name'			=> 'fields['.$key.'][height]',
+			'name'			=> 'fields[' . $key . '][height]',
 			'value'			=> $field['height'],
 			'append'		=> 'px',
 			'placeholder'	=> $this->default_values['height']
@@ -252,9 +252,9 @@ class acf_field_google_map extends acf_field
 	*  @return	$value - the modified value
 	*/
 	
-	function update_value( $value, $post_id, $field ) {
+	function update_value($value, $post_id, $field) {
 	
-		if( empty($value) || empty($value['lat']) || empty($value['lng']) ) {
+		if (empty($value) || empty($value['lat']) || empty($value['lng'])) {
 			
 			return false;
 			
@@ -282,7 +282,7 @@ class acf_field_google_map extends acf_field
    	function input_admin_head() {
 	   	
 	   	$action = is_admin() ? 'admin_footer' : 'wp_footer';
-   		add_action( $action, array( $this, 'input_admin_footer') );
+   		add_action($action, array($this, 'input_admin_footer'));
    		
    	}
    	
@@ -301,8 +301,8 @@ class acf_field_google_map extends acf_field
 	   	
 	   	
 	   	// remove empty
-	   	if( empty($api['key']) ) unset($api['key']);
-	   	if( empty($api['client']) ) unset($api['client']);
+	   	if (empty($api['key'])) unset($api['key']);
+	   	if (empty($api['client'])) unset($api['client']);
 	   	
 	   	
 ?>

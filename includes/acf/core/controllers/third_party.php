@@ -21,7 +21,7 @@ class acf_third_party
 	function __construct()
 	{
 		// Tabify Edit Screen - http://wordpress.org/extend/plugins/tabify-edit-screen/
-		add_action('admin_head-settings_page_tabify-edit-screen', array($this,'admin_head_tabify'));
+		add_action('admin_head-settings_page_tabify-edit-screen', array($this, 'admin_head_tabify'));
 		
 		
 		// Duplicate Post - http://wordpress.org/extend/plugins/duplicate-post/
@@ -42,13 +42,13 @@ class acf_third_party
 	*  @created: 19/11/12
 	*/
 	
-	function pts_post_type_filter( $args )
+	function pts_post_type_filter($args)
 	{
 		
 		// global
 		global $typenow;
 		
-		if( $typenow == "acf" )
+		if ($typenow == "acf")
 		{
 			$args = array(
 				'public'  => false,
@@ -77,7 +77,7 @@ class acf_third_party
 		
 		
 		// add acf metaboxes to list
-		add_action('tabify_add_meta_boxes' , array($this,'tabify_add_meta_boxes'));
+		add_action('tabify_add_meta_boxes', array($this, 'tabify_add_meta_boxes'));
 		
 	}
 	
@@ -90,11 +90,11 @@ class acf_third_party
 	*  @created: 9/10/12
 	*/
 	
-	function tabify_posttypes( $posttypes )
+	function tabify_posttypes($posttypes)
 	{
-		if( isset($posttypes['acf']) )
+		if (isset($posttypes['acf']))
 		{
-			unset( $posttypes['acf'] );
+			unset($posttypes['acf']);
 		}
 	
 		return $posttypes;
@@ -109,14 +109,14 @@ class acf_third_party
 	*  @created: 9/10/12
 	*/
 	
-	function tabify_add_meta_boxes( $post_type )
+	function tabify_add_meta_boxes($post_type)
 	{
 		// get acf's
 		$acfs = apply_filters('acf/get_field_groups', array());
 		
-		if($acfs)
+		if ($acfs)
 		{
-			foreach($acfs as $acf)
+			foreach ($acfs as $acf)
 			{
 				// add meta box
 				add_meta_box(
@@ -132,7 +132,7 @@ class acf_third_party
 		// if($acfs)
 	}
 	
-	function dummy(){ /* Do Nothing */ }
+	function dummy() { /* Do Nothing */ }
 	
 	
 	
@@ -144,35 +144,35 @@ class acf_third_party
 	*  @created: 9/10/12
 	*/
 	
-	function dp_duplicate_page( $new_post_id, $old_post_object )
+	function dp_duplicate_page($new_post_id, $old_post_object)
 	{
 		// only for acf
-		if( $old_post_object->post_type != "acf" )
+		if ($old_post_object->post_type != "acf")
 		{
 			return;
 		}
 		
 		
 		// update keys
-		$metas = get_post_custom( $new_post_id );
+		$metas = get_post_custom($new_post_id);
 
 
-		if( $metas )
+		if ($metas)
 		{
-			foreach( $metas as $field_key => $field )
+			foreach ($metas as $field_key => $field)
 			{
-				if( strpos($field_key, 'field_') !== false )
+				if (strpos($field_key, 'field_') !== false)
 				{
 					$field = $field[0];
-					$field = maybe_unserialize( $field );
-					$field = maybe_unserialize( $field ); // just to be sure!
+					$field = maybe_unserialize($field);
+					$field = maybe_unserialize($field); // just to be sure!
 					
 					// delete old field
 					delete_post_meta($new_post_id, $field_key);
 
 
 					// set new keys (recursive for sub fields)
-					$this->create_new_field_keys( $field );
+					$this->create_new_field_keys($field);
 
 
 					// save it!
@@ -196,28 +196,28 @@ class acf_third_party
 	*  @created: 9/10/12
 	*/
 	
-	function create_new_field_keys( &$field )
+	function create_new_field_keys(&$field)
 	{
 		// update key
 		$field['key'] = 'field_' . uniqid();
 		
 		
-		if( isset($field['sub_fields']) && is_array($field['sub_fields']) )
+		if (isset($field['sub_fields']) && is_array($field['sub_fields']))
 		{
-			foreach( $field['sub_fields'] as $f )
+			foreach ($field['sub_fields'] as $f)
 			{
-				$this->create_new_field_keys( $f );
+				$this->create_new_field_keys($f);
 			}
 		}
-		elseif( isset($field['layouts']) && is_array($field['layouts']) )
+		elseif (isset($field['layouts']) && is_array($field['layouts']))
 		{
-			foreach( $field['layouts'] as $layout )
+			foreach ($field['layouts'] as $layout)
 			{
-				if( isset($layout['sub_fields']) && is_array($layout['sub_fields']) )
+				if (isset($layout['sub_fields']) && is_array($layout['sub_fields']))
 				{
-					foreach( $layout['sub_fields'] as $f )
+					foreach ($layout['sub_fields'] as $f)
 					{
-						$this->create_new_field_keys( $f );
+						$this->create_new_field_keys($f);
 					}
 				}
 				

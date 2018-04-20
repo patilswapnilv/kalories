@@ -78,7 +78,7 @@ class acf_field
 	
 	function add_filter($tag, $function_to_add, $priority = 10, $accepted_args = 1)
 	{
-		if( is_callable($function_to_add) )
+		if (is_callable($function_to_add))
 		{
 			add_filter($tag, $function_to_add, $priority, $accepted_args);
 		}
@@ -95,7 +95,7 @@ class acf_field
 	
 	function add_action($tag, $function_to_add, $priority = 10, $accepted_args = 1)
 	{
-		if( is_callable($function_to_add) )
+		if (is_callable($function_to_add))
 		{
 			add_action($tag, $function_to_add, $priority, $accepted_args);
 		}
@@ -116,17 +116,17 @@ class acf_field
 	*  @return	$fields - the array of all registered fields
 	*/
 	
-	function registered_fields( $fields )
+	function registered_fields($fields)
 	{
 		// defaults
-		if( !$this->category )
+		if (!$this->category)
 		{
 			$this->category = __('Basic', 'acf');
 		}
 		
 		
 		// add to array
-		$fields[ $this->category ][ $this->name ] = $this->label;
+		$fields[$this->category][$this->name] = $this->label;
 		
 		
 		// return array
@@ -146,15 +146,15 @@ class acf_field
 	*  @return	$field	{array}
 	*/
 	
-	function load_field_defaults( $field )
+	function load_field_defaults($field)
 	{
-		if( !empty($this->defaults) )
+		if (!empty($this->defaults))
 		{
-			foreach( $this->defaults as $k => $v )
+			foreach ($this->defaults as $k => $v)
 			{
-				if( !isset($field[ $k ]) )
+				if (!isset($field[$k]))
 				{
-					$field[ $k ] = $v;
+					$field[$k] = $v;
 				}
 			}
 		}
@@ -175,11 +175,11 @@ class acf_field
 	*  @return	$field	{array}
 	*/
 	
-	function input_admin_l10n( $l10n )
+	function input_admin_l10n($l10n)
 	{
-		if( !empty($this->l10n) )
+		if (!empty($this->l10n))
 		{
-			$l10n[ $this->name ] = $this->l10n;
+			$l10n[$this->name] = $this->l10n;
 		}
 		
 		return $l10n;

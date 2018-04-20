@@ -67,7 +67,7 @@ class Kalories {
 	 * @since    1.0.0
 	 */
 	public function __construct() {
-		if ( defined( 'PLUGIN_NAME_VERSION' ) ) {
+		if (defined('PLUGIN_NAME_VERSION')) {
 			$this->version = PLUGIN_NAME_VERSION;
 		} else {
 			$this->version = '1.0.0';
@@ -103,24 +103,24 @@ class Kalories {
 		 * The class responsible for orchestrating the actions and filters of the
 		 * core plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-kalories-loader.php';
+		require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-kalories-loader.php';
 
 		/**
 		 * The class responsible for defining internationalization functionality
 		 * of the plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-kalories-i18n.php';
+		require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-kalories-i18n.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-kalories-admin.php';
+		require_once plugin_dir_path(dirname(__FILE__)) . 'admin/class-kalories-admin.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
 		 * side of the site.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-kalories-public.php';
+		require_once plugin_dir_path(dirname(__FILE__)) . 'public/class-kalories-public.php';
 
 		$this->loader = new Kalories_Loader();
 
@@ -139,7 +139,7 @@ class Kalories {
 
 		$plugin_i18n = new Kalories_i18n();
 
-		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
+		$this->loader->add_action('plugins_loaded', $plugin_i18n, 'load_plugin_textdomain');
 
 	}
 
@@ -152,29 +152,29 @@ class Kalories {
 	 */
 	private function define_admin_hooks() {
 
-		$plugin_admin = new Kalories_Admin( $this->get_plugin_name(), $this->get_version() );
+		$plugin_admin = new Kalories_Admin($this->get_plugin_name(), $this->get_version());
 
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
-		$this->loader->add_action( 'init', $plugin_admin, 'new_cpt_meal' );
-		$this->loader->add_action( 'init', $plugin_admin, 'new_cpt_kalories_cal' );
+		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_styles');
+		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts');
+		$this->loader->add_action('init', $plugin_admin, 'new_cpt_meal');
+		$this->loader->add_action('init', $plugin_admin, 'new_cpt_kalories_cal');
 		/**
-		* add the additional hook we defined earlier inside
-		* the define_admin_hooks  method.
-		* The proper action hook to include on
-		* our options page is admin_menu
-		*/
+		 * add the additional hook we defined earlier inside
+		 * the define_admin_hooks  method.
+		 * The proper action hook to include on
+		 * our options page is admin_menu
+		 */
 
-		$this->loader->add_action( 'admin_menu', $plugin_admin, 'add_options_page' );
+		$this->loader->add_action('admin_menu', $plugin_admin, 'add_options_page');
 		//$this->loader->add_action( 'init', $plugin_admin, 'new_taxonomy_type' );
 		//$this->loader->add_filter( 'plugin_action_links_' . Kalories_FILE, $plugin_admin, 'link_settings' );
-		$this->loader->add_action( 'plugin_row_meta', $plugin_admin, 'link_row', 10, 2 );
-		$this->loader->add_action( 'admin_menu', $plugin_admin, 'add_menu' );
-		$this->loader->add_action( 'admin_init', $plugin_admin, 'register_settings' );
-		$this->loader->add_action( 'admin_init', $plugin_admin, 'register_sections' );
-		$this->loader->add_action( 'admin_init', $plugin_admin, 'register_fields' );
-		$this->loader->add_action( 'admin_notices', $plugin_admin, 'display_admin_notices' );
-		$this->loader->add_action( 'admin_init', $plugin_admin, 'admin_notices_init' );
+		$this->loader->add_action('plugin_row_meta', $plugin_admin, 'link_row', 10, 2);
+		$this->loader->add_action('admin_menu', $plugin_admin, 'add_menu');
+		$this->loader->add_action('admin_init', $plugin_admin, 'register_settings');
+		$this->loader->add_action('admin_init', $plugin_admin, 'register_sections');
+		$this->loader->add_action('admin_init', $plugin_admin, 'register_fields');
+		$this->loader->add_action('admin_notices', $plugin_admin, 'display_admin_notices');
+		$this->loader->add_action('admin_init', $plugin_admin, 'admin_notices_init');
 
 
 	} // define_admin_hooks()
@@ -188,14 +188,14 @@ class Kalories {
 	 */
 	private function define_public_hooks() {
 
-		$plugin_public = new Kalories_Public( $this->get_plugin_name(), $this->get_version() );
+		$plugin_public = new Kalories_Public($this->get_plugin_name(), $this->get_version());
 
 		// $this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		// $this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles', $this->get_version(), TRUE );
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts', $this->get_version(), TRUE );
-		$this->loader->add_filter( 'single_template', $plugin_public, 'single_cpt_template' );
+		$this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_styles', $this->get_version(), TRUE);
+		$this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_scripts', $this->get_version(), TRUE);
+		$this->loader->add_filter('single_template', $plugin_public, 'single_cpt_template');
 
 		//$this->loader->add_action( 'init', $plugin_public, 'register_shortcodes' );
 
