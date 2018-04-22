@@ -1,3 +1,6 @@
 [submodule "acf"]
 	path = acf
 	url = https://github.com/patilswapnilv/acf.git
+[submodule "includes/acf"]
+	path = includes/acf
+	url = https://github.com/patilswapnilv/acf.git
