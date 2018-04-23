@@ -283,9 +283,9 @@ class Kalories_Admin
 							$defaults['label-remove'] 	= 'Remove Item';
 							$defaults['title-field'] 	= '';
 
-						/*
+						
                             $defaults['name'] 			= $this->plugin_name . '-options[' . $args['id'] . ']';
-                        */
+
 							apply_filters( $this->plugin_name . '-field-repeater-options-defaults', $defaults );
 
 							$setatts 	= wp_parse_args( $args, $defaults );

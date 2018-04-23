@@ -100,4 +100,35 @@ class Kalories_Public {
 
 	}
 
+	/**
+	 * Adds a default single view template for a kalories-cal post-type
+	 *
+	 * @param 	string 		$template 		The name of the template
+	 * @return 	mixed 						The single template
+	 */
+	public function single_cpt_template( $template ) {
+
+		global $post;
+
+		$return = $template;
+
+	    if ( $post->post_type == 'kalories-cal' ) {
+
+			$return = kalories_get_template( 'single-kalories-cal' );
+
+		}
+
+		return $return;
+
+	} // single_cpt_template()
+
+	/**
+	 * Sets the class variable $options
+	 */
+	private function set_options() {
+
+		$this->options = get_option( $this->plugin_name . '-options' );
+
+	} // set_options()
+
 }
