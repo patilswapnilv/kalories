@@ -125,7 +125,7 @@ class Kalories {
 		/**
 		 * The class responsible for all global functions.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/kalories-global-functions.php';
+		require_once plugin_dir_path(dirname(__FILE__)) . 'includes/kalories-global-functions.php';
 
 		$this->loader = new Kalories_Loader();
 
