@@ -26,6 +26,5 @@
 			the_content();
 		?>
 </div>
-<?php //endif;
-wp_reset_postdata(); ?>
+<?php endif; wp_reset_postdata(); ?>
 <?php endwhile; ?>

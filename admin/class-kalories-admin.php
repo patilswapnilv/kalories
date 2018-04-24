@@ -283,7 +283,7 @@ class Kalories_Admin
 							$defaults['label-remove'] 	= 'Remove Item';
 							$defaults['title-field'] 	= '';
 
-						
+
                             $defaults['name'] 			= $this->plugin_name . '-options[' . $args['id'] . ']';
 
 							apply_filters( $this->plugin_name . '-field-repeater-options-defaults', $defaults );
@@ -531,7 +531,7 @@ class Kalories_Admin
 												  $opts[ 'capability_type' ]      = $cap_type;
 												  $opts[ 'description' ]          = '';
 												  $opts[ 'exclude_from_search' ]  = FALSE;
-												  $opts[ 'has_archive' ]          = FALSE;
+												  $opts[ 'has_archive' ]          = TRUE;
 												  $opts[ 'hierarchical' ]         = FALSE;
 												  $opts[ 'map_meta_cap' ]         = TRUE;
 												  $opts[ 'menu_icon' ]            = 'dashicons-carrot';
