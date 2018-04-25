@@ -48,7 +48,7 @@ class Kalories_Admin
 				 * @param      string    $plugin_name       The name of this plugin.
 				 * @param      string    $version    The version of this plugin.
 				 */
-				public function __construct( $plugin_name, $version )
+				public function __construct($plugin_name, $version)
 						{
 
 								$this->plugin_name = $plugin_name;
@@ -65,12 +65,12 @@ class Kalories_Admin
 						 */
 						  public static function add_admin_notices() {
 
-						  	$notices 	= get_option( 'kalories_deferred_admin_notices', array() );
+						  	$notices = get_option('kalories_deferred_admin_notices', array());
 								//$notices[] 	= array( 'class' => 'updated', 'notice' => esc_html__( 'Kalories: Custom Activation Message', 'kalories' ) );
 								//$notices[] 	= array( 'class' => 'error', 'notice' => esc_html__( 'Kalories: Problem Activation Message', 'kalories' ) );
 
-								apply_filters( 'kalories_admin_notices', $notices );
-								update_option( 'kalories_deferred_admin_notices', $notices );
+								apply_filters('kalories_admin_notices', $notices);
+								update_option('kalories_deferred_admin_notices', $notices);
 
 						  } // add_admin_notices
 
@@ -91,20 +91,20 @@ class Kalories_Admin
 
 							add_submenu_page(
 							  'edit.php?post_type=meal',
-							  apply_filters( $this->plugin_name . '-settings-page-title', esc_html__( 'Kalories Settings', 'kalories' ) ),
-							  apply_filters( $this->plugin_name . '-settings-menu-title', esc_html__( 'Settings', 'kalories' ) ),
+							  apply_filters($this->plugin_name . '-settings-page-title', esc_html__('Kalories Settings', 'kalories')),
+							  apply_filters($this->plugin_name . '-settings-menu-title', esc_html__('Settings', 'kalories')),
 							  'manage_options',
 							  $this->plugin_name . '-settings',
-							  array( $this, 'page_options' )
+							  array($this, 'page_options')
 							);
 
 							add_submenu_page(
 							  'edit.php?post_type=meal',
-							  apply_filters( $this->plugin_name . '-settings-page-title', esc_html__( 'Kalories Help', 'kalories' ) ),
-							  apply_filters( $this->plugin_name . '-settings-menu-title', esc_html__( 'Help', 'kalories' ) ),
+							  apply_filters($this->plugin_name . '-settings-page-title', esc_html__('Kalories Help', 'kalories')),
+							  apply_filters($this->plugin_name . '-settings-menu-title', esc_html__('Help', 'kalories')),
 							  'manage_options',
 							  $this->plugin_name . '-help',
-							  array( $this, 'page_help' )
+							  array($this, 'page_help')
 							);
 
 						  } // add_menu()
@@ -118,7 +118,7 @@ class Kalories_Admin
 
 							$current_version = '1.0.0';
 
-							if ( $this->version !== $current_version ) {
+							if ($this->version !== $current_version) {
 
 							  // Do whatever upgrades needed here.
 
@@ -137,17 +137,17 @@ class Kalories_Admin
 						   */
 						  public function display_admin_notices() {
 
-							$notices = get_option( 'kalories_deferred_admin_notices' );
+							$notices = get_option('kalories_deferred_admin_notices');
 
-							if ( empty( $notices ) ) { return; }
+							if (empty($notices)) { return; }
 
-							foreach ( $notices as $notice ) {
+							foreach ($notices as $notice) {
 
-							  echo '<div class="' . esc_attr( $notice['class'] ) . '"><p>' . $notice['notice'] . '</p></div>';
+							  echo '<div class="' . esc_attr($notice['class']) . '"><p>' . $notice['notice'] . '</p></div>';
 
 							}
 
-							delete_option( 'kalories_deferred_admin_notices' );
+							delete_option('kalories_deferred_admin_notices');
 
 							} // display_admin_notices()
 
@@ -158,7 +158,7 @@ class Kalories_Admin
 						   */
 						  public function enqueue_styles() {
 
-							wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/kalories-admin.css', array(), $this->version, 'all' );
+							wp_enqueue_style($this->plugin_name, plugin_dir_url(__FILE__) . 'css/kalories-admin.css', array(), $this->version, 'all');
 
 						  } // enqueue_styles()
 
@@ -167,21 +167,21 @@ class Kalories_Admin
 						   *
 						   * @since 		1.0.0
 						   */
-						  public function enqueue_scripts( $hook_suffix ) {
+						  public function enqueue_scripts($hook_suffix) {
 
 							global $post_type;
 
 							$screen = get_current_screen();
 
-							if ( 'meal' === $post_type || $screen->id === $hook_suffix ) {
+							if ('meal' === $post_type || $screen->id === $hook_suffix) {
 
-							  wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/' . $this->plugin_name . '-file-uploader.min.js', array( 'jquery' ), $this->version, true );
-							  wp_enqueue_script( $this->plugin_name . '-repeater', plugin_dir_url( __FILE__ ) . 'js/' . $this->plugin_name . '-repeater.min.js', array( 'jquery' ), $this->version, true );
-							  wp_enqueue_script( 'jquery-ui-datepicker' );
+							  wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/' . $this->plugin_name . '-file-uploader.min.js', array('jquery'), $this->version, true);
+							  wp_enqueue_script($this->plugin_name . '-repeater', plugin_dir_url(__FILE__) . 'js/' . $this->plugin_name . '-repeater.min.js', array('jquery'), $this->version, true);
+							  wp_enqueue_script('jquery-ui-datepicker');
 
-							  $localize['repeatertitle'] = __( 'File Name', 'kalories' );
+							  $localize['repeatertitle'] = __('File Name', 'kalories');
 
-							  wp_localize_script( 'kalories', 'nhdata', $localize );
+							  wp_localize_script('kalories', 'nhdata', $localize);
 
 
 							}
@@ -194,25 +194,25 @@ class Kalories_Admin
 						   * @param 	array 		$args 			The arguments for the field
 						   * @return 	string 						The HTML field
 						   */
-						  public function field_checkbox( $args ) {
+						  public function field_checkbox($args) {
 
 							$defaults['class'] 			= '';
-							$defaults['description'] 	= '';
+							$defaults['description'] = '';
 							$defaults['label'] 			= '';
-							$defaults['name'] 			= $this->plugin_name . '-options[' . $args['id'] . ']';
+							$defaults['name'] = $this->plugin_name . '-options[' . $args['id'] . ']';
 							$defaults['value'] 			= 0;
 
-							apply_filters( $this->plugin_name . '-field-checkbox-options-defaults', $defaults );
+							apply_filters($this->plugin_name . '-field-checkbox-options-defaults', $defaults);
 
-							$atts = wp_parse_args( $args, $defaults );
+							$atts = wp_parse_args($args, $defaults);
 
-							if ( ! empty( $this->options[$atts['id']] ) ) {
+							if (!empty($this->options[$atts['id']])) {
 
 							  $atts['value'] = $this->options[$atts['id']];
 
 							}
 
-							include( plugin_dir_path( __FILE__ ) . 'partials/' . $this->plugin_name . '-admin-field-checkbox.php' );
+							include(plugin_dir_path(__FILE__) . 'partials/' . $this->plugin_name . '-admin-field-checkbox.php');
 
 						  } // field_checkbox()
 
@@ -224,23 +224,23 @@ class Kalories_Admin
 						   * @param 	array 		$args 			The arguments for the field
 						   * @return 	string 						The HTML field
 						   */
-						  public function field_editor( $args ) {
+						  public function field_editor($args) {
 
-							$defaults['description'] 	= '';
-							$defaults['settings'] 		= array( 'textarea_name' => $this->plugin_name . '-options[' . $args['id'] . ']' );
-							$defaults['value'] 			= '';
+							$defaults['description'] = '';
+							$defaults['settings'] = array('textarea_name' => $this->plugin_name . '-options[' . $args['id'] . ']');
+							$defaults['value'] = '';
 
-							apply_filters( $this->plugin_name . '-field-editor-options-defaults', $defaults );
+							apply_filters($this->plugin_name . '-field-editor-options-defaults', $defaults);
 
-							$atts = wp_parse_args( $args, $defaults );
+							$atts = wp_parse_args($args, $defaults);
 
-							if ( ! empty( $this->options[$atts['id']] ) ) {
+							if (!empty($this->options[$atts['id']])) {
 
 							  $atts['value'] = $this->options[$atts['id']];
 
 							}
 
-							include( plugin_dir_path( __FILE__ ) . 'partials/' . $this->plugin_name . '-admin-field-editor.php' );
+							include(plugin_dir_path(__FILE__) . 'partials/' . $this->plugin_name . '-admin-field-editor.php');
 
 						  } // field_editor()
 
@@ -284,7 +284,12 @@ class Kalories_Admin
 							$defaults['title-field'] 	= '';
 
 
+
                             $defaults['name'] 			= $this->plugin_name . '-options[' . $args['id'] . ']';
+
+
+							$defaults['name'] 			= $this->plugin_name . '-options[' . $args['id'] . ']';
+
 
 							apply_filters( $this->plugin_name . '-field-repeater-options-defaults', $defaults );
 
@@ -316,39 +321,39 @@ class Kalories_Admin
 						   * @param 	array 		$args 			The arguments for the field
 						   * @return 	string 						The HTML field
 						   */
-						  public function field_select( $args ) {
+						  public function field_select($args) {
 
-							$defaults['aria'] 			= '';
+							$defaults['aria'] = '';
 							$defaults['blank'] 			= '';
 							$defaults['class'] 			= 'widefat';
-							$defaults['context'] 		= '';
-							$defaults['description'] 	= '';
+							$defaults['context'] = '';
+							$defaults['description'] = '';
 							$defaults['label'] 			= '';
-							$defaults['name'] 			= $this->plugin_name . '-options[' . $args['id'] . ']';
-							$defaults['selections'] 	= array();
+							$defaults['name'] = $this->plugin_name . '-options[' . $args['id'] . ']';
+							$defaults['selections'] = array();
 							$defaults['value'] 			= '';
 
-							apply_filters( $this->plugin_name . '-field-select-options-defaults', $defaults );
+							apply_filters($this->plugin_name . '-field-select-options-defaults', $defaults);
 
-							$atts = wp_parse_args( $args, $defaults );
+							$atts = wp_parse_args($args, $defaults);
 
-							if ( ! empty( $this->options[$atts['id']] ) ) {
+							if (!empty($this->options[$atts['id']])) {
 
 							  $atts['value'] = $this->options[$atts['id']];
 
 							}
 
-							if ( empty( $atts['aria'] ) && ! empty( $atts['description'] ) ) {
+							if (empty($atts['aria']) && !empty($atts['description'])) {
 
 							  $atts['aria'] = $atts['description'];
 
-							} elseif ( empty( $atts['aria'] ) && ! empty( $atts['label'] ) ) {
+							} elseif (empty($atts['aria']) && !empty($atts['label'])) {
 
 							  $atts['aria'] = $atts['label'];
 
 							}
 
-							include( plugin_dir_path( __FILE__ ) . 'partials/' . $this->plugin_name . '-admin-field-select.php' );
+							include(plugin_dir_path(__FILE__) . 'partials/' . $this->plugin_name . '-admin-field-select.php');
 
 						  } // field_select()
 
@@ -358,7 +363,7 @@ class Kalories_Admin
 						   * @param 	array 		$args 			The arguments for the field
 						   * @return 	string 						The HTML field
 						   */
-						  public function field_text( $args ) {
+						  public function field_text($args) {
 
 							$defaults['class'] 			= 'text widefat';
 							$defaults['description'] 	= '';
@@ -366,19 +371,19 @@ class Kalories_Admin
 							$defaults['name'] 			= $this->plugin_name . '-options[' . $args['id'] . ']';
 							$defaults['placeholder'] 	= '';
 							$defaults['type'] 			= 'text';
-							$defaults['value'] 			= '';
+							$defaults['value'] = '';
 
-							apply_filters( $this->plugin_name . '-field-text-options-defaults', $defaults );
+							apply_filters($this->plugin_name . '-field-text-options-defaults', $defaults);
 
-							$atts = wp_parse_args( $args, $defaults );
+							$atts = wp_parse_args($args, $defaults);
 
-							if ( ! empty( $this->options[$atts['id']] ) ) {
+							if (!empty($this->options[$atts['id']])) {
 
 							  $atts['value'] = $this->options[$atts['id']];
 
 							}
 
-							include( plugin_dir_path( __FILE__ ) . 'partials/' . $this->plugin_name . '-admin-field-text.php' );
+							include(plugin_dir_path(__FILE__) . 'partials/' . $this->plugin_name . '-admin-field-text.php');
 
 						  } // field_text()
 
@@ -388,28 +393,28 @@ class Kalories_Admin
 						   * @param 	array 		$args 			The arguments for the field
 						   * @return 	string 						The HTML field
 						   */
-						  public function field_textarea( $args ) {
+						  public function field_textarea($args) {
 
-							$defaults['class'] 			= 'large-text';
-							$defaults['cols'] 			= 50;
-							$defaults['context'] 		= '';
-							$defaults['description'] 	= '';
+							$defaults['class'] = 'large-text';
+							$defaults['cols'] = 50;
+							$defaults['context'] = '';
+							$defaults['description'] = '';
 							$defaults['label'] 			= '';
 							$defaults['name'] 			= $this->plugin_name . '-options[' . $args['id'] . ']';
 							$defaults['rows'] 			= 10;
 							$defaults['value'] 			= '';
 
-							apply_filters( $this->plugin_name . '-field-textarea-options-defaults', $defaults );
+							apply_filters($this->plugin_name . '-field-textarea-options-defaults', $defaults);
 
-							$atts = wp_parse_args( $args, $defaults );
+							$atts = wp_parse_args($args, $defaults);
 
-							if ( ! empty( $this->options[$atts['id']] ) ) {
+							if (!empty($this->options[$atts['id']])) {
 
 							  $atts['value'] = $this->options[$atts['id']];
 
 							}
 
-							include( plugin_dir_path( __FILE__ ) . 'partials/' . $this->plugin_name . '-admin-field-textarea.php' );
+							include(plugin_dir_path(__FILE__) . 'partials/' . $this->plugin_name . '-admin-field-textarea.php');
 
 						  } // field_textarea()
 
@@ -422,9 +427,9 @@ class Kalories_Admin
 
 							$options = array();
 
-							$options[] = array( 'message-no-openings', 'text', 'Thank you for your interest! There are no job openings at this time.' );
-							$options[] = array( 'howtoapply', 'editor', '' );
-							$options[] = array( 'repeat-test', 'repeater', array( array( 'test1', 'text' ), array( 'test2', 'text' ), array( 'test3', 'text' ) ) );
+							$options[] = array('message-no-openings', 'text', 'Thank you for your interest! There are no job openings at this time.');
+							$options[] = array('howtoapply', 'editor', '');
+							$options[] = array('repeat-test', 'repeater', array(array('test1', 'text'), array('test2', 'text'), array('test3', 'text')));
 
 							return $options;
 
@@ -445,69 +450,69 @@ class Kalories_Admin
 										  $single   = 'Meal';
 										  $cpt_name = 'meal';
 
-										  $opts[ 'can_export' ]           = TRUE;
-										  $opts[ 'capability_type' ]      = $cap_type;
-										  $opts[ 'description' ]          = '';
-										  $opts[ 'exclude_from_search' ]  = FALSE;
-										  $opts[ 'has_archive' ]          = FALSE;
-										  $opts[ 'hierarchical' ]         = FALSE;
-										  $opts[ 'map_meta_cap' ]         = TRUE;
-										  $opts[ 'menu_icon' ]            = 'dashicons-carrot';
-										  $opts[ 'menu_position' ]        = 5;
-										  $opts[ 'public' ]               = TRUE;
-										  $opts[ 'publicly_querable' ]    = TRUE;
-										  $opts[ 'query_var' ]            = TRUE;
-										  $opts[ 'register_meta_box_cb' ] = '';
-										  $opts[ 'rewrite' ]              = FALSE;
-										  $opts[ 'show_in_admin_bar' ]    = TRUE;
-										  $opts[ 'show_in_menu' ]         = TRUE;
-										  $opts[ 'show_in_nav_menu' ]     = TRUE;
-										  $opts[ 'show_ui' ]              = TRUE;
-										  $opts[ 'supports' ]             = array(
+										  $opts['can_export']           = TRUE;
+										  $opts['capability_type']      = $cap_type;
+										  $opts['description']          = '';
+										  $opts['exclude_from_search']  = FALSE;
+										  $opts['has_archive']          = FALSE;
+										  $opts['hierarchical']         = FALSE;
+										  $opts['map_meta_cap']         = TRUE;
+										  $opts['menu_icon']            = 'dashicons-carrot';
+										  $opts['menu_position']        = 5;
+										  $opts['public']               = TRUE;
+										  $opts['publicly_querable']    = TRUE;
+										  $opts['query_var']            = TRUE;
+										  $opts['register_meta_box_cb'] = '';
+										  $opts['rewrite']              = FALSE;
+										  $opts['show_in_admin_bar']    = TRUE;
+										  $opts['show_in_menu']         = TRUE;
+										  $opts['show_in_nav_menu']     = TRUE;
+										  $opts['show_ui']              = TRUE;
+										  $opts['supports']             = array(
 														   'title',
 														  'editor',
 														  'thumbnail'
 										  );
-										  $opts[ 'taxonomies' ]           = array( );
+										  $opts['taxonomies'] = array( );
 
-										  $opts[ 'capabilities' ][ 'delete_others_posts' ]    = "delete_others_{$cap_type}s";
-										  $opts[ 'capabilities' ][ 'delete_post' ]            = "delete_{$cap_type}";
-										  $opts[ 'capabilities' ][ 'delete_posts' ]           = "delete_{$cap_type}s";
-										  $opts[ 'capabilities' ][ 'delete_private_posts' ]   = "delete_private_{$cap_type}s";
-										  $opts[ 'capabilities' ][ 'delete_published_posts' ] = "delete_published_{$cap_type}s";
-										  $opts[ 'capabilities' ][ 'edit_others_posts' ]      = "edit_others_{$cap_type}s";
-										  $opts[ 'capabilities' ][ 'edit_post' ]              = "edit_{$cap_type}";
-										  $opts[ 'capabilities' ][ 'edit_posts' ]             = "edit_{$cap_type}s";
-										  $opts[ 'capabilities' ][ 'edit_private_posts' ]     = "edit_private_{$cap_type}s";
-										  $opts[ 'capabilities' ][ 'edit_published_posts' ]   = "edit_published_{$cap_type}s";
-										  $opts[ 'capabilities' ][ 'publish_posts' ]          = "publish_{$cap_type}s";
-										  $opts[ 'capabilities' ][ 'read_post' ]              = "read_{$cap_type}";
-										  $opts[ 'capabilities' ][ 'read_private_posts' ]     = "read_private_{$cap_type}s";
+										  $opts['capabilities']['delete_others_posts']    = "delete_others_{$cap_type}s";
+										  $opts['capabilities']['delete_post']            = "delete_{$cap_type}";
+										  $opts['capabilities']['delete_posts']           = "delete_{$cap_type}s";
+										  $opts['capabilities']['delete_private_posts']   = "delete_private_{$cap_type}s";
+										  $opts['capabilities']['delete_published_posts'] = "delete_published_{$cap_type}s";
+										  $opts['capabilities']['edit_others_posts']      = "edit_others_{$cap_type}s";
+										  $opts['capabilities']['edit_post']              = "edit_{$cap_type}";
+										  $opts['capabilities']['edit_posts']             = "edit_{$cap_type}s";
+										  $opts['capabilities']['edit_private_posts']     = "edit_private_{$cap_type}s";
+										  $opts['capabilities']['edit_published_posts']   = "edit_published_{$cap_type}s";
+										  $opts['capabilities']['publish_posts']          = "publish_{$cap_type}s";
+										  $opts['capabilities']['read_post']              = "read_{$cap_type}";
+										  $opts['capabilities']['read_private_posts']     = "read_private_{$cap_type}s";
 
-										  $opts[ 'labels' ][ 'add_new' ]            = esc_html__( "Add New {$single}", 'kalories' );
-										  $opts[ 'labels' ][ 'add_new_item' ]       = esc_html__( "Add New {$single}", 'kalories' );
-										  $opts[ 'labels' ][ 'all_items' ]          = esc_html__( $plural, 'kalories' );
-										  $opts[ 'labels' ][ 'edit_item' ]          = esc_html__( "Edit {$single}", 'kalories' );
-										  $opts[ 'labels' ][ 'menu_name' ]          = esc_html__( $plural, 'kalories' );
-										  $opts[ 'labels' ][ 'name' ]               = esc_html__( $plural, 'kalories' );
-										  $opts[ 'labels' ][ 'name_admin_bar' ]     = esc_html__( $single, 'kalories' );
-										  $opts[ 'labels' ][ 'new_item' ]           = esc_html__( "New {$single}", 'kalories' );
-										  $opts[ 'labels' ][ 'not_found' ]          = esc_html__( "No {$plural} Found", 'kalories' );
-										  $opts[ 'labels' ][ 'not_found_in_trash' ] = esc_html__( "No {$plural} Found in Trash", 'kalories' );
-										  $opts[ 'labels' ][ 'parent_item_colon' ]  = esc_html__( "Parent {$plural} :", 'kalories' );
-										  $opts[ 'labels' ][ 'search_items' ]       = esc_html__( "Search {$plural}", 'kalories' );
-										  $opts[ 'labels' ][ 'singular_name' ]      = esc_html__( $single, 'kalories' );
-										  $opts[ 'labels' ][ 'view_item' ]          = esc_html__( "View {$single}", 'kalories' );
+										  $opts['labels']['add_new']            = esc_html__("Add New {$single}", 'kalories');
+										  $opts['labels']['add_new_item']       = esc_html__("Add New {$single}", 'kalories');
+										  $opts['labels']['all_items']          = esc_html__($plural, 'kalories');
+										  $opts['labels']['edit_item']          = esc_html__("Edit {$single}", 'kalories');
+										  $opts['labels']['menu_name']          = esc_html__($plural, 'kalories');
+										  $opts['labels']['name']               = esc_html__($plural, 'kalories');
+										  $opts['labels']['name_admin_bar']     = esc_html__($single, 'kalories');
+										  $opts['labels']['new_item']           = esc_html__("New {$single}", 'kalories');
+										  $opts['labels']['not_found']          = esc_html__("No {$plural} Found", 'kalories');
+										  $opts['labels']['not_found_in_trash'] = esc_html__("No {$plural} Found in Trash", 'kalories');
+										  $opts['labels']['parent_item_colon']  = esc_html__("Parent {$plural} :", 'kalories');
+										  $opts['labels']['search_items']       = esc_html__("Search {$plural}", 'kalories');
+										  $opts['labels']['singular_name']      = esc_html__($single, 'kalories');
+										  $opts['labels']['view_item']          = esc_html__("View {$single}", 'kalories');
 
-										  $opts[ 'rewrite' ][ 'ep_mask' ]    = EP_PERMALINK;
-										  $opts[ 'rewrite' ][ 'feeds' ]      = FALSE;
-										  $opts[ 'rewrite' ][ 'pages' ]      = TRUE;
-										  $opts[ 'rewrite' ][ 'slug' ]       = esc_html__( strtolower( $plural ), 'kalories' );
-										  $opts[ 'rewrite' ][ 'with_front' ] = FALSE;
+										  $opts['rewrite']['ep_mask']    = EP_PERMALINK;
+										  $opts['rewrite']['feeds']      = FALSE;
+										  $opts['rewrite']['pages']      = TRUE;
+										  $opts['rewrite']['slug']       = esc_html__(strtolower($plural), 'kalories');
+										  $opts['rewrite']['with_front'] = FALSE;
 
-										  $opts = apply_filters( 'kalories-cpt-options', $opts );
+										  $opts = apply_filters('kalories-cpt-options', $opts);
 
-										  register_post_type( strtolower( $cpt_name ), $opts );
+										  register_post_type(strtolower($cpt_name), $opts);
 
 
 								  } // new_cpt_meal)
@@ -527,6 +532,7 @@ class Kalories_Admin
 												  $single   = 'Kalorie';
 												  $cpt_name = 'kalories-cal';
 
+<<<<<<< HEAD
 												  $opts[ 'can_export' ]           = TRUE;
 												  $opts[ 'capability_type' ]      = $cap_type;
 												  $opts[ 'description' ]          = '';
@@ -546,50 +552,71 @@ class Kalories_Admin
 												  $opts[ 'show_in_nav_menu' ]     = TRUE;
 												  $opts[ 'show_ui' ]              = TRUE;
 												  $opts[ 'supports' ]             = array(
+=======
+												  $opts['can_export']           = TRUE;
+												  $opts['capability_type']      = $cap_type;
+												  $opts['description']          = '';
+												  $opts['exclude_from_search']  = FALSE;
+												  $opts['has_archive']          = FALSE;
+												  $opts['hierarchical']         = FALSE;
+												  $opts['map_meta_cap']         = TRUE;
+												  $opts['menu_icon']            = 'dashicons-carrot';
+												  $opts['menu_position']        = 6;
+												  $opts['public']               = TRUE;
+												  $opts['publicly_querable']    = TRUE;
+												  $opts['query_var']            = TRUE;
+												  $opts['register_meta_box_cb'] = '';
+												  $opts['rewrite']              = FALSE;
+												  $opts['show_in_admin_bar']    = TRUE;
+												  $opts['show_in_menu']         = TRUE;
+												  $opts['show_in_nav_menu']     = TRUE;
+												  $opts['show_ui']              = TRUE;
+												  $opts['supports']             = array(
+>>>>>>> dev
 																   'title',
 																  'editor',
 																  'thumbnail'
 												  );
-												  $opts[ 'taxonomies' ]           = array( );
+												  $opts['taxonomies'] = array( );
 
-												  $opts[ 'capabilities' ][ 'delete_others_posts' ]    = "delete_others_{$cap_type}s";
-												  $opts[ 'capabilities' ][ 'delete_post' ]            = "delete_{$cap_type}";
-												  $opts[ 'capabilities' ][ 'delete_posts' ]           = "delete_{$cap_type}s";
-												  $opts[ 'capabilities' ][ 'delete_private_posts' ]   = "delete_private_{$cap_type}s";
-												  $opts[ 'capabilities' ][ 'delete_published_posts' ] = "delete_published_{$cap_type}s";
-												  $opts[ 'capabilities' ][ 'edit_others_posts' ]      = "edit_others_{$cap_type}s";
-												  $opts[ 'capabilities' ][ 'edit_post' ]              = "edit_{$cap_type}";
-												  $opts[ 'capabilities' ][ 'edit_posts' ]             = "edit_{$cap_type}s";
-												  $opts[ 'capabilities' ][ 'edit_private_posts' ]     = "edit_private_{$cap_type}s";
-												  $opts[ 'capabilities' ][ 'edit_published_posts' ]   = "edit_published_{$cap_type}s";
-												  $opts[ 'capabilities' ][ 'publish_posts' ]          = "publish_{$cap_type}s";
-												  $opts[ 'capabilities' ][ 'read_post' ]              = "read_{$cap_type}";
-												  $opts[ 'capabilities' ][ 'read_private_posts' ]     = "read_private_{$cap_type}s";
+												  $opts['capabilities']['delete_others_posts']    = "delete_others_{$cap_type}s";
+												  $opts['capabilities']['delete_post']            = "delete_{$cap_type}";
+												  $opts['capabilities']['delete_posts']           = "delete_{$cap_type}s";
+												  $opts['capabilities']['delete_private_posts']   = "delete_private_{$cap_type}s";
+												  $opts['capabilities']['delete_published_posts'] = "delete_published_{$cap_type}s";
+												  $opts['capabilities']['edit_others_posts']      = "edit_others_{$cap_type}s";
+												  $opts['capabilities']['edit_post']              = "edit_{$cap_type}";
+												  $opts['capabilities']['edit_posts']             = "edit_{$cap_type}s";
+												  $opts['capabilities']['edit_private_posts']     = "edit_private_{$cap_type}s";
+												  $opts['capabilities']['edit_published_posts']   = "edit_published_{$cap_type}s";
+												  $opts['capabilities']['publish_posts']          = "publish_{$cap_type}s";
+												  $opts['capabilities']['read_post']              = "read_{$cap_type}";
+												  $opts['capabilities']['read_private_posts']     = "read_private_{$cap_type}s";
 
-												  $opts[ 'labels' ][ 'add_new' ]            = esc_html__( "Add New {$single}", 'kalories' );
-												  $opts[ 'labels' ][ 'add_new_item' ]       = esc_html__( "Add New {$single}", 'kalories' );
-												  $opts[ 'labels' ][ 'all_items' ]          = esc_html__( $plural, 'kalories' );
-												  $opts[ 'labels' ][ 'edit_item' ]          = esc_html__( "Edit {$single}", 'kalories' );
-												  $opts[ 'labels' ][ 'menu_name' ]          = esc_html__( $plural, 'kalories' );
-												  $opts[ 'labels' ][ 'name' ]               = esc_html__( $plural, 'kalories' );
-												  $opts[ 'labels' ][ 'name_admin_bar' ]     = esc_html__( $single, 'kalories' );
-												  $opts[ 'labels' ][ 'new_item' ]           = esc_html__( "New {$single}", 'kalories' );
-												  $opts[ 'labels' ][ 'not_found' ]          = esc_html__( "No {$plural} Found", 'kalories' );
-												  $opts[ 'labels' ][ 'not_found_in_trash' ] = esc_html__( "No {$plural} Found in Trash", 'kalories' );
-												  $opts[ 'labels' ][ 'parent_item_colon' ]  = esc_html__( "Parent {$plural} :", 'kalories' );
-												  $opts[ 'labels' ][ 'search_items' ]       = esc_html__( "Search {$plural}", 'kalories' );
-												  $opts[ 'labels' ][ 'singular_name' ]      = esc_html__( $single, 'kalories' );
-												  $opts[ 'labels' ][ 'view_item' ]          = esc_html__( "View {$single}", 'kalories' );
+												  $opts['labels']['add_new']            = esc_html__("Add New {$single}", 'kalories');
+												  $opts['labels']['add_new_item']       = esc_html__("Add New {$single}", 'kalories');
+												  $opts['labels']['all_items']          = esc_html__($plural, 'kalories');
+												  $opts['labels']['edit_item']          = esc_html__("Edit {$single}", 'kalories');
+												  $opts['labels']['menu_name']          = esc_html__($plural, 'kalories');
+												  $opts['labels']['name']               = esc_html__($plural, 'kalories');
+												  $opts['labels']['name_admin_bar']     = esc_html__($single, 'kalories');
+												  $opts['labels']['new_item']           = esc_html__("New {$single}", 'kalories');
+												  $opts['labels']['not_found']          = esc_html__("No {$plural} Found", 'kalories');
+												  $opts['labels']['not_found_in_trash'] = esc_html__("No {$plural} Found in Trash", 'kalories');
+												  $opts['labels']['parent_item_colon']  = esc_html__("Parent {$plural} :", 'kalories');
+												  $opts['labels']['search_items']       = esc_html__("Search {$plural}", 'kalories');
+												  $opts['labels']['singular_name']      = esc_html__($single, 'kalories');
+												  $opts['labels']['view_item']          = esc_html__("View {$single}", 'kalories');
 
-												  $opts[ 'rewrite' ][ 'ep_mask' ]    = EP_PERMALINK;
-												  $opts[ 'rewrite' ][ 'feeds' ]      = FALSE;
-												  $opts[ 'rewrite' ][ 'pages' ]      = TRUE;
-												  $opts[ 'rewrite' ][ 'slug' ]       = esc_html__( strtolower( $plural ), 'kalories' );
-												  $opts[ 'rewrite' ][ 'with_front' ] = FALSE;
+												  $opts['rewrite']['ep_mask']    = EP_PERMALINK;
+												  $opts['rewrite']['feeds']      = FALSE;
+												  $opts['rewrite']['pages']      = TRUE;
+												  $opts['rewrite']['slug']       = esc_html__(strtolower($plural), 'kalories');
+												  $opts['rewrite']['with_front'] = FALSE;
 
-												  $opts = apply_filters( 'kalories-cpt-options', $opts );
+												  $opts = apply_filters('kalories-cpt-options', $opts);
 
-												  register_post_type( strtolower( $cpt_name ), $opts );
+												  register_post_type(strtolower($cpt_name), $opts);
 
 
 										  } // new_cpt_kalories()
@@ -603,7 +630,7 @@ class Kalories_Admin
 						   */
 						  public function page_help() {
 
-							include( plugin_dir_path( __FILE__ ) . 'partials/kalories-admin-page-help.php' );
+							include(plugin_dir_path(__FILE__) . 'partials/kalories-admin-page-help.php');
 
 						  } // page_help()
 
@@ -615,7 +642,7 @@ class Kalories_Admin
 						   */
 						  public function page_options() {
 
-							include( plugin_dir_path( __FILE__ ) . 'partials/kalories-admin-page-settings.php' );
+							include(plugin_dir_path(__FILE__) . 'partials/kalories-admin-page-settings.php');
 
 						  } // page_options()
 
@@ -653,8 +680,8 @@ class Kalories_Admin
 
 							add_settings_field(
 							  'repeater-test',
-							  apply_filters( $this->plugin_name . 'label-repeater-test', esc_html__( 'Repeater Test', 'kalories' ) ),
-							  array( $this, 'field_repeater' ),
+							  apply_filters($this->plugin_name . 'label-repeater-test', esc_html__('Repeater Test', 'kalories')),
+							  array($this, 'field_repeater'),
 							  $this->plugin_name,
 							  $this->plugin_name . '-messages',
 							  array(
@@ -718,8 +745,8 @@ class Kalories_Admin
 
 							add_settings_section(
 							  $this->plugin_name . '-messages',
-							  apply_filters( $this->plugin_name . 'section-title-messages', esc_html__( 'Settings', 'kalories' ) ),
-							  array( $this, 'section_messages' ),
+							  apply_filters($this->plugin_name . 'section-title-messages', esc_html__('Settings', 'kalories')),
+							  array($this, 'section_messages'),
 							  $this->plugin_name
 							);
 
@@ -738,25 +765,25 @@ class Kalories_Admin
 							register_setting(
 							  $this->plugin_name . '-options',
 							  $this->plugin_name . '-options',
-							  array( $this, 'validate_options' )
+							  array($this, 'validate_options')
 							);
 
 						  } // register_settings()
 
-						  private function sanitizer( $type, $data ) {
+						  private function sanitizer($type, $data) {
 
-							if ( empty( $type ) ) { return; }
-							if ( empty( $data ) ) { return; }
+							if (empty($type)) { return; }
+							if (empty($data)) { return; }
 
-							$return 	= '';
-							$sanitizer 	= new Kalories_Sanitize();
+							$return = '';
+							$sanitizer = new Kalories_Sanitize();
 
-							$sanitizer->set_data( $data );
-							$sanitizer->set_type( $type );
+							$sanitizer->set_data($data);
+							$sanitizer->set_type($type);
 
 							$return = $sanitizer->clean();
 
-							unset( $sanitizer );
+							unset($sanitizer);
 
 							return $return;
 
@@ -769,9 +796,9 @@ class Kalories_Admin
 						   * @param 		array 		$params 		Array of parameters for the section
 						   * @return 		mixed 						The settings section
 						   */
-						  public function section_messages( $params ) {
+						  public function section_messages($params) {
 
-							include( plugin_dir_path( __FILE__ ) . 'partials/kalories-admin-section-messages.php' );
+							include(plugin_dir_path(__FILE__) . 'partials/kalories-admin-section-messages.php');
 
 						  } // section_messages()
 
@@ -780,7 +807,7 @@ class Kalories_Admin
 						   */
 						  private function set_options() {
 
-							$this->options = get_option( $this->plugin_name . '-options' );
+							$this->options = get_option($this->plugin_name . '-options');
 
 						  } // set_options()
 
@@ -792,10 +819,10 @@ class Kalories_Admin
 				public function add_options_page( )
 						{
 
-								$this->plugin_screen_hook_suffix = add_options_page( __( 'Kalories Settings', 'kalories' ), __( 'Kalories', 'kalories' ), 'manage_options', $this->plugin_name, array(
+								$this->plugin_screen_hook_suffix = add_options_page(__('Kalories Settings', 'kalories'), __('Kalories', 'kalories'), 'manage_options', $this->plugin_name, array(
 												 $this,
 												'display_options_page'
-								) );
+								));
 
 						}
 
@@ -817,39 +844,39 @@ class Kalories_Admin
 		 * @param 		array 		$input 			array of submitted plugin options
 		 * @return 		array 						array of validated plugin options
 		 */
-	   public function validate_options( $input ) {
+	   public function validate_options($input) {
 
 		 //wp_die( print_r( $input ) );
 
-		 $valid 		= array();
-		 $options 	= $this->get_options_list();
+		 $valid = array();
+		 $options = $this->get_options_list();
 
-		 foreach ( $options as $option ) {
+		 foreach ($options as $option) {
 
 		   $name = $option[0];
 		   $type = $option[1];
 
-		   if ( 'repeater' === $type && is_array( $option[2] ) ) {
+		   if ('repeater' === $type && is_array($option[2])) {
 
 			 $clean = array();
 
-			 foreach ( $option[2] as $field ) {
+			 foreach ($option[2] as $field) {
 
-			   foreach ( $input[$field[0]] as $data ) {
+			   foreach ($input[$field[0]] as $data) {
 
-				 if ( empty( $data ) ) { continue; }
+				 if (empty($data)) { continue; }
 
-				 $clean[$field[0]][] = $this->sanitizer( $field[1], $data );
+				 $clean[$field[0]][] = $this->sanitizer($field[1], $data);
 
 			   } // foreach
 
 			 } // foreach
 
-			 $count = kalories_get_max( $clean );
+			 $count = kalories_get_max($clean);
 
-			 for ( $i = 0; $i < $count; $i++ ) {
+			 for ($i = 0; $i < $count; $i++) {
 
-			   foreach ( $clean as $field_name => $field ) {
+			   foreach ($clean as $field_name => $field) {
 
 				 $valid[$option[0]][$i][$field_name] = $field[$i];
 
@@ -859,7 +886,7 @@ class Kalories_Admin
 
 		   } else {
 
-			 $valid[$option[0]] = $this->sanitizer( $type, $input[$name] );
+			 $valid[$option[0]] = $this->sanitizer($type, $input[$name]);
 
 		   }
 

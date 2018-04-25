@@ -112,7 +112,7 @@ class Kalories_Public {
 
 		$return = $template;
 
-	    if ( $post->post_type == 'kalories-cal' ) {
+		if ( $post->post_type == 'kalories-cal' ) {
 
 			$return = kalories_get_template( 'single-kalories-cal' );
 
@@ -127,7 +127,7 @@ class Kalories_Public {
 	 */
 	private function set_options() {
 
-		$this->options = get_option( $this->plugin_name . '-options' );
+		$this->options = get_option($this->plugin_name . '-options');
 
 	} // set_options()
 
