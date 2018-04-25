@@ -532,7 +532,6 @@ class Kalories_Admin
 												  $single   = 'Kalorie';
 												  $cpt_name = 'kalories-cal';
 
-<<<<<<< HEAD
 												  $opts[ 'can_export' ]           = TRUE;
 												  $opts[ 'capability_type' ]      = $cap_type;
 												  $opts[ 'description' ]          = '';
@@ -551,28 +550,7 @@ class Kalories_Admin
 												  $opts[ 'show_in_menu' ]         = TRUE;
 												  $opts[ 'show_in_nav_menu' ]     = TRUE;
 												  $opts[ 'show_ui' ]              = TRUE;
-												  $opts[ 'supports' ]             = array(
-=======
-												  $opts['can_export']           = TRUE;
-												  $opts['capability_type']      = $cap_type;
-												  $opts['description']          = '';
-												  $opts['exclude_from_search']  = FALSE;
-												  $opts['has_archive']          = FALSE;
-												  $opts['hierarchical']         = FALSE;
-												  $opts['map_meta_cap']         = TRUE;
-												  $opts['menu_icon']            = 'dashicons-carrot';
-												  $opts['menu_position']        = 6;
-												  $opts['public']               = TRUE;
-												  $opts['publicly_querable']    = TRUE;
-												  $opts['query_var']            = TRUE;
-												  $opts['register_meta_box_cb'] = '';
-												  $opts['rewrite']              = FALSE;
-												  $opts['show_in_admin_bar']    = TRUE;
-												  $opts['show_in_menu']         = TRUE;
-												  $opts['show_in_nav_menu']     = TRUE;
-												  $opts['show_ui']              = TRUE;
 												  $opts['supports']             = array(
->>>>>>> dev
 																   'title',
 																  'editor',
 																  'thumbnail'
