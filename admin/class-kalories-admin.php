@@ -454,7 +454,7 @@ class Kalories_Admin
 										  $opts['capability_type']      = $cap_type;
 										  $opts['description']          = '';
 										  $opts['exclude_from_search']  = FALSE;
-										  $opts['has_archive']          = FALSE;
+										  $opts['has_archive']          = TRUE;
 										  $opts['hierarchical']         = FALSE;
 										  $opts['map_meta_cap']         = TRUE;
 										  $opts['menu_icon']            = 'dashicons-carrot';
