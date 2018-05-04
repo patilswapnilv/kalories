@@ -2,3 +2,7 @@
  * All of the CSS for your public-facing functionality should be
  * included in this file.
  */
+
+ div#calculator-primary {
+    margin: 0px 0px 0px 15px;
+}

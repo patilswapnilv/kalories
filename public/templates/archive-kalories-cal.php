@@ -11,20 +11,34 @@
  * @since 1.0
  * @version 1.0
  */
-
 ?>
 
-<?php
- $query = new WP_Query( array('post_type' => 'kalories-cal', 'posts_per_page' => 5 ) );
- while ( $query->have_posts() ) : $query->the_post(); ?>
-// Your code e.g. "the_content();"
-<div class="entry-content">
- <?php
-		if ( has_post_thumbnail() ) {
-			the_post_thumbnail();
-		}
-			the_content();
-		?>
-</div>
-<?php endif; wp_reset_postdata(); ?>
-<?php endwhile; ?>
+ <?php acf_form_head(); ?>
+ <?php get_header(); ?>
+
+ 	<div id="calculator-primary" class="content-area">
+		<h1> Select your meals </h1>
+ 		<div id="calculator-content" class="kalories-cal-content" role="main">
+
+ 			<?php /* The loop */ ?>
+ 			<?php //while (have_posts()) : the_post();?>
+
+        <?php
+        $current_time == date('l jS \of F Y h:i:s A');
+        ?>
+
+ 				<?php acf_form(array(
+                    'post_id'		=> 'new_post',
+                    'new_post'		=> array(
+                        'post_type'		=> 'kalories-cal',
+                        'post_title' => ($current_time),
+                        'post_status'		=> 'publish'
+                    ),
+                    'submit_value'		=> 'Add new'
+                )); ?>
+
+ 			<?php //endwhile;?>
+
+ 		</div><!-- #content -->
+ 	</div><!-- #primary -->
+ <?php get_footer(); ?>
