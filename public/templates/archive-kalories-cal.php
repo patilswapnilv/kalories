@@ -24,18 +24,18 @@
  			<?php //while (have_posts()) : the_post();?>
 
         <?php
-        $current_time == date('l jS \of F Y h:i:s A');
-        ?>
+		$current_time == date('l jS \of F Y h:i:s A');
+		?>
 
  				<?php acf_form(array(
-                    'post_id'		=> 'new_post',
-                    'new_post'		=> array(
-                        'post_type'		=> 'kalories-cal',
-                        'post_title' => ($current_time),
-                        'post_status'		=> 'publish'
-                    ),
-                    'submit_value'		=> 'Add new'
-                )); ?>
+					'post_id'		=> 'new_post',
+					'new_post'		=> array(
+						'post_type'		=> 'kalories-cal',
+						'post_title' => ($current_time),
+						'post_status'		=> 'publish'
+					),
+					'submit_value'		=> 'Add new'
+				)); ?>
 
  			<?php //endwhile;?>
 

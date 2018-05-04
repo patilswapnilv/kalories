@@ -24,13 +24,13 @@
  			<?php while (have_posts()) : the_post(); ?>
 
  				<?php acf_form(array(
-                    'post_id'		=> 'new_post',
-                    'new_post'		=> array(
-                        'post_type'		=> 'kalories-cal',
-                        'post_status'		=> 'publish'
-                    ),
-                    'submit_value'		=> 'Add new'
-                )); ?>
+					'post_id'		=> 'new_post',
+					'new_post'		=> array(
+						'post_type'		=> 'kalories-cal',
+						'post_status'		=> 'publish'
+					),
+					'submit_value'		=> 'Add new'
+				)); ?>
 
  			<?php endwhile; ?>
 
